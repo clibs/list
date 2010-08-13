@@ -12,7 +12,7 @@ ListIterator_new(List *list, ListDirection direction) {
   ListIterator *self;
   if (!(self = LIST_MALLOC(sizeof(ListIterator))))
     return NULL;
-  self->node = direction == ListHead
+  self->next = direction == ListHead
     ? list->head
     : list->tail;
   self->direction = direction;
@@ -21,7 +21,11 @@ ListIterator_new(List *list, ListDirection direction) {
 
 ListNode *
 ListIterator_next(ListIterator *self) {
-  return self->direction == ListHead
-    ? self->node->next
-    : self->node->prev;
+  ListNode *curr = self->next;
+  if (curr) {
+    self->next = self->direction == ListHead
+      ? curr->next
+      : curr->prev;
+  }
+  return curr;
 }

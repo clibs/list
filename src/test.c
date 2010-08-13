@@ -114,11 +114,30 @@ test_ListIterator() {
   List_push(list, simon);
   
   // Assertions
+  
+  // From head
   ListIterator *it = ListIterator_new(list, ListHead);
-  ListNode *node;
-  while ((node = ListIterator_next(it)) != NULL) {
-    puts(node->val);
-  }
+  ListNode *a = ListIterator_next(it);
+  ListNode *b = ListIterator_next(it);
+  ListNode *c = ListIterator_next(it);
+  ListNode *d = ListIterator_next(it);
+  
+  assert(a == tj);
+  assert(b == taylor);
+  assert(c == simon);
+  assert(d == NULL);
+
+  // From tail
+  it = ListIterator_new(list, ListTail);
+  ListNode *a2 = ListIterator_next(it);
+  ListNode *b2 = ListIterator_next(it);
+  ListNode *c2 = ListIterator_next(it);
+  ListNode *d2 = ListIterator_next(it);
+  
+  assert(a2 == simon);
+  assert(b2 == taylor);
+  assert(c2 == tj);
+  assert(d2 == NULL);
 }
 
 int

@@ -55,7 +55,7 @@ typedef struct {
  */
 
 typedef struct {
-  ListNode *node;
+  ListNode *next;
   ListDirection direction;
 } ListIterator;
 
@@ -73,6 +73,6 @@ void List_destroy(List *self);
 // List iterator prototypes.
 
 ListIterator *ListIterator_new(List *list, ListDirection direction);
-ListNode *ListNode_next(ListIterator *self);
+ListNode *ListIterator_next(ListIterator *self);
 
 #endif /* __LIST_H__ */
