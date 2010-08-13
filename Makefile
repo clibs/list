@@ -3,7 +3,7 @@ CC = gcc
 SRCS = src/list.c \
 		   src/test.c
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -std=c99
+CFLAGS = -std=c99 -Wall
 
 all: bin/test
 

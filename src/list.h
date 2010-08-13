@@ -1,12 +1,16 @@
 
 //
-// List
+// list.h
 //
 // Copyright (c) 2010 TJ Holowaychuk <tj@vision-media.ca>
 //
 
 #ifndef __LIST_H__
 #define __LIST_H__
+
+#ifndef LIST_MALLOC
+#define LIST_MALLOC malloc
+#endif
 
 /*
  * List node struct.
@@ -27,5 +31,12 @@ typedef struct {
   ListNode *tail;
   unsigned int len;
 } List;
+
+/*
+ * Prototypes.
+ */
+
+List *List_new();
+List *List_destroy(List *self);
 
 #endif /* __LIST_H__ */
