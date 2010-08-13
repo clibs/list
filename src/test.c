@@ -99,7 +99,9 @@ test_List_destroy() {
 
 int
 main(int argc, const char **argv){
-  putchar('\n');
+  printf("\nList: %db\n", sizeof(List));
+  printf("ListNode: %db\n", sizeof(ListNode));
+  printf("ListIterator: %db\n\n", sizeof(ListIterator));
   test(ListNode_new);
   test(List_push);
   test(List_unshift);

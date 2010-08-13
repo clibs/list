@@ -41,6 +41,14 @@ typedef struct {
   void (*free)(void *val);
 } List;
 
+/*
+ * List iterator struct.
+ */
+
+typedef struct {
+  ListNode *node;
+} ListIterator;
+
 // Node prototypes.
 
 ListNode *ListNode_new(void *val);
