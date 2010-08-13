@@ -24,6 +24,15 @@ testList_push() {
   List_push(list, a);
   List_push(list, b);
   List_push(list, c);
+  assert(list->head == a);
+  assert(list->tail == c);
+  assert(list->len == 3);
+  assert(a->next == b);
+  assert(a->prev == NULL);
+  assert(b->next == c);
+  assert(b->prev == a);
+  assert(c->next == NULL);
+  assert(c->prev == b);
 }
 
 int
