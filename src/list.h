@@ -36,6 +36,7 @@ typedef struct {
   ListNode *head;
   ListNode *tail;
   unsigned int len;
+  void (*free)(void *val);
 } List;
 
 // Node prototypes.

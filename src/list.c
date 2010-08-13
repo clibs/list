@@ -34,6 +34,7 @@ List_new() {
     return NULL;
   self->head = NULL;
   self->tail = NULL;
+  self->free = NULL;
   self->len = 0;
   return self;
 }
@@ -49,6 +50,7 @@ List_destroy(List *self) {
   ListNode *curr = self->head;
   while (len--) {
     next = curr->next;
+    if (self->free) self->free(curr->val);
     LIST_FREE(curr);
     curr = next;
   }

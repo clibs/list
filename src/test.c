@@ -4,9 +4,21 @@
 #include <stdio.h>
 #include "list.h"
 
+// Helpers
+
 #define test(fn) \
   puts("... test " # fn "()"); \
   test_##fn();
+
+static int freeProxyCalls = 0;
+
+void
+freeProxy(void *val) {
+  ++freeProxyCalls;
+  free(val);
+}
+
+// Tests
 
 void
 test_ListNode_new() {
@@ -75,6 +87,14 @@ test_List_destroy() {
   List_push(b, ListNode_new("b"));
   List_push(b, ListNode_new("c"));
   List_destroy(b);
+
+  List *c = List_new();
+  c->free = freeProxy;
+  List_push(c, ListNode_new(ListNode_new("a")));
+  List_push(c, ListNode_new(ListNode_new("b")));
+  List_push(c, ListNode_new(ListNode_new("c")));
+  List_destroy(c);
+  assert(freeProxyCalls == 3);
 }
 
 int
