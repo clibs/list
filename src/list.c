@@ -15,7 +15,7 @@
 ListNode *
 ListNode_new(void *val) {
   ListNode *self;
-  if (NULL == (self = LIST_MALLOC(sizeof(ListNode))))
+  if (!(self = LIST_MALLOC(sizeof(ListNode))))
     return NULL;
   self->prev = NULL;
   self->next = NULL;
@@ -30,7 +30,7 @@ ListNode_new(void *val) {
 List *
 List_new() {
   List *self;
-  if (NULL == (self = LIST_MALLOC(sizeof(List))))
+  if (!(self = LIST_MALLOC(sizeof(List))))
     return NULL;
   self->head = NULL;
   self->tail = NULL;
@@ -44,19 +44,16 @@ List_new() {
 
 List *
 List_push(List *self, ListNode *node) {
-  if (NULL == node) {
-    return NULL;
+  if (!node) return NULL;
+  if (self->len == 0) {
+    self->head = self->tail = node;
+    node->prev = node->next = NULL;
   } else {
-    if (self->len == 0) {
-      self->head = self->tail = node;
-      node->prev = node->next = NULL;
-    } else {
-      node->prev = self->tail;
-      node->next = NULL;
-      self->tail->next = node;
-      self->tail = node;
-    }
-    ++self->len;
+    node->prev = self->tail;
+    node->next = NULL;
+    self->tail->next = node;
+    self->tail = node;
   }
+  ++self->len;
   return self;
 }
