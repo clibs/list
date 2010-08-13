@@ -20,6 +20,11 @@
 #define LIST_FREE free
 #endif
 
+// List iterator direction
+
+#define LIST_HEAD 0
+#define LIST_TAIL 1
+
 /*
  * List node struct.
  */
@@ -47,6 +52,7 @@ typedef struct {
 
 typedef struct {
   ListNode *node;
+  int direction;
 } ListIterator;
 
 // Node prototypes.
