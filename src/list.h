@@ -25,8 +25,8 @@
  */
 
 typedef enum {
-    ListHead
-  , ListTail
+    LIST_HEAD
+  , LIST_TAIL
 } ListDirection;
 
 /*

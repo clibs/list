@@ -7,23 +7,32 @@
 
 #include "list.h"
 
+/*
+ * Allocate a nwe ListIterator. NULL on failure.
+ * Accepts a direction, which may be LIST_HEAD or LIST_TAIL.
+ */
+
 ListIterator *
 ListIterator_new(List *list, ListDirection direction) {
   ListIterator *self;
   if (!(self = LIST_MALLOC(sizeof(ListIterator))))
     return NULL;
-  self->next = direction == ListHead
+  self->next = direction == LIST_HEAD
     ? list->head
     : list->tail;
   self->direction = direction;
   return self;
 }
 
+/*
+ * 
+ */
+
 ListNode *
 ListIterator_next(ListIterator *self) {
   ListNode *curr = self->next;
   if (curr) {
-    self->next = self->direction == ListHead
+    self->next = self->direction == LIST_HEAD
       ? curr->next
       : curr->prev;
   }

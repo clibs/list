@@ -116,7 +116,7 @@ test_ListIterator() {
   // Assertions
   
   // From head
-  ListIterator *it = ListIterator_new(list, ListHead);
+  ListIterator *it = ListIterator_new(list, LIST_HEAD);
   ListNode *a = ListIterator_next(it);
   ListNode *b = ListIterator_next(it);
   ListNode *c = ListIterator_next(it);
@@ -128,7 +128,7 @@ test_ListIterator() {
   assert(d == NULL);
 
   // From tail
-  it = ListIterator_new(list, ListTail);
+  it = ListIterator_new(list, LIST_TAIL);
   ListNode *a2 = ListIterator_next(it);
   ListNode *b2 = ListIterator_next(it);
   ListNode *c2 = ListIterator_next(it);
