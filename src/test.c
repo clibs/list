@@ -67,7 +67,14 @@ test_List_unshift() {
 
 void
 test_List_destroy() {
+  List *a = List_new();
+  List_destroy(a);
   
+  List *b = List_new();
+  List_push(b, ListNode_new("a"));
+  List_push(b, ListNode_new("b"));
+  List_push(b, ListNode_new("c"));
+  List_destroy(b);
 }
 
 int

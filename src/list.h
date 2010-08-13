@@ -41,13 +41,12 @@ typedef struct {
 // Node prototypes.
 
 ListNode *ListNode_new(void *val);
-ListNode *ListNode_destroy(ListNode *self);
 
 // List prototypes.
 
 List *List_new();
 List *List_push(List *self, ListNode *node);
 List *List_unshift(List *self, ListNode *node);
-List *List_destroy(List *self);
+void List_destroy(List *self);
 
 #endif /* __LIST_H__ */

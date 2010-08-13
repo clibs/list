@@ -39,6 +39,23 @@ List_new() {
 }
 
 /*
+ * Free the list.
+ */
+
+void
+List_destroy(List *self) {
+  unsigned int len = self->len;
+  ListNode *next;
+  ListNode *curr = self->head;
+  while (len--) {
+    next = curr->next;
+    LIST_FREE(curr);
+    curr = next;
+  }
+  LIST_FREE(self);
+}
+
+/*
  * Append the given node to the list. NULL on failure.
  */
 
