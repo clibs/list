@@ -9,7 +9,7 @@
 #include "list.h"
 
 /*
- * Allocates a new ListNode.
+ * Allocates a new ListNode. NULL on failure.
  */
 
 ListNode *
@@ -24,7 +24,7 @@ ListNode_new(void *val) {
 }
 
 /*
- * Allocate a new List.
+ * Allocate a new List. NULL on failure.
  */
 
 List *
@@ -37,6 +37,10 @@ List_new() {
   self->len = 0;
   return self;
 }
+
+/*
+ * Push the given node to the list. NULL on failure.
+ */
 
 List *
 List_push(List *self, ListNode *node) {
