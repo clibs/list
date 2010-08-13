@@ -5,18 +5,18 @@
 #include "list.h"
 
 #define test(fn) \
-  puts("... " # fn); \
-  fn();
+  puts("... test " # fn "()"); \
+  test_##fn();
 
 void
-testListNode_new() {
+test_ListNode_new() {
   char *val = "some value";
   ListNode *node = ListNode_new(val);
   assert(node->val == val);
 }
 
 void
-testList_push() {
+test_List_push() {
   // Setup
   List *list = List_new();
   ListNode *a = ListNode_new("a");
@@ -41,7 +41,7 @@ testList_push() {
 }
 
 void
-testList_unshift() {
+test_List_unshift() {
   // Setup
   List *list = List_new();
   ListNode *a = ListNode_new("a");
@@ -65,12 +65,18 @@ testList_unshift() {
   assert(c->prev == NULL);
 }
 
+void
+test_List_destroy() {
+  
+}
+
 int
 main(int argc, const char **argv){
   putchar('\n');
-  test(testListNode_new);
-  test(testList_push);
-  test(testList_unshift);
+  test(ListNode_new);
+  test(List_push);
+  test(List_unshift);
+  test(List_destroy);
   puts("... done\n");
   return 0;
 }
