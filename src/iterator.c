@@ -25,7 +25,8 @@ ListIterator_new(List *list, ListDirection direction) {
 }
 
 /*
- * 
+ * Return the next ListNode or NULL when no more
+ * nodes remain in the list.
  */
 
 ListNode *
@@ -37,4 +38,13 @@ ListIterator_next(ListIterator *self) {
       : curr->prev;
   }
   return curr;
+}
+
+/*
+ * Free the list iterator.
+ */
+
+void
+ListIterator_destroy(ListIterator *self) {
+  LIST_FREE(self);
 }

@@ -138,6 +138,7 @@ test_ListIterator() {
   assert(b2 == taylor);
   assert(c2 == tj);
   assert(d2 == NULL);
+  ListIterator_destroy(it);
 }
 
 int

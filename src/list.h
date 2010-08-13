@@ -74,5 +74,6 @@ void List_destroy(List *self);
 
 ListIterator *ListIterator_new(List *list, ListDirection direction);
 ListNode *ListIterator_next(ListIterator *self);
+void ListIterator_destroy(ListIterator *self);
 
 #endif /* __LIST_H__ */
