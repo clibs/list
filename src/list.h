@@ -20,10 +20,14 @@
 #define LIST_FREE free
 #endif
 
-// List iterator direction
+/*
+ * List iterator direction.
+ */
 
-#define LIST_HEAD 0
-#define LIST_TAIL 1
+typedef enum {
+    ListHead
+  , ListTail
+} ListDirection;
 
 /*
  * List node struct.
@@ -52,7 +56,7 @@ typedef struct {
 
 typedef struct {
   ListNode *node;
-  int direction;
+  ListDirection direction;
 } ListIterator;
 
 // Node prototypes.
@@ -65,5 +69,10 @@ List *List_new();
 List *List_push(List *self, ListNode *node);
 List *List_unshift(List *self, ListNode *node);
 void List_destroy(List *self);
+
+// List iterator prototypes.
+
+ListIterator *ListIterator_new(List *list, ListDirection direction);
+ListNode *ListNode_next(ListIterator *self);
 
 #endif /* __LIST_H__ */

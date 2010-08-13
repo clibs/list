@@ -7,7 +7,7 @@
 // Helpers
 
 #define test(fn) \
-  puts("... test " # fn "()"); \
+  puts("... test " # fn); \
   test_##fn();
 
 static int freeProxyCalls = 0;
@@ -79,15 +79,18 @@ test_List_unshift() {
 
 void
 test_List_destroy() {
+  // Setup
   List *a = List_new();
   List_destroy(a);
   
+  // a b c
   List *b = List_new();
   List_push(b, ListNode_new("a"));
   List_push(b, ListNode_new("b"));
   List_push(b, ListNode_new("c"));
   List_destroy(b);
 
+  // Assertions
   List *c = List_new();
   c->free = freeProxy;
   List_push(c, ListNode_new(ListNode_new("a")));
@@ -95,6 +98,27 @@ test_List_destroy() {
   List_push(c, ListNode_new(ListNode_new("c")));
   List_destroy(c);
   assert(freeProxyCalls == 3);
+}
+
+void
+test_ListIterator() {
+  // Setup
+  List *list = List_new();
+  ListNode *tj = ListNode_new("tj");
+  ListNode *taylor = ListNode_new("taylor");
+  ListNode *simon = ListNode_new("simon");
+  
+  // tj taylor simon
+  List_push(list, tj);
+  List_push(list, taylor);
+  List_push(list, simon);
+  
+  // Assertions
+  ListIterator *it = ListIterator_new(list, ListHead);
+  ListNode *node;
+  while ((node = ListIterator_next(it)) != NULL) {
+    puts(node->val);
+  }
 }
 
 int
@@ -106,6 +130,7 @@ main(int argc, const char **argv){
   test(List_push);
   test(List_unshift);
   test(List_destroy);
+  test(ListIterator);
   puts("... done\n");
   return 0;
 }
