@@ -9,13 +9,15 @@
   fn();
 
 void
-testListInitialization() {
-  List *list = List_new();
+testListNodeInitialization() {
+  char *val = "some value";
+  ListNode *node = ListNode_new(val);
+  assert(node->val == val);
 }
 
 int
 main(int argc, const char **argv){
-  test(testListInitialization);
+  test(testListNodeInitialization);
   puts("... done");
   return 0;
 }

@@ -33,7 +33,14 @@ typedef struct {
 } List;
 
 /*
- * Prototypes.
+ * Node prototypes.
+ */
+
+ListNode *ListNode_new(void *val);
+ListNode *ListNode_destroy(ListNode *self);
+
+/*
+ * List prototypes.
  */
 
 List *List_new();
