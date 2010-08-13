@@ -17,13 +17,18 @@ testListNode_new() {
 
 void
 testList_push() {
+  // Setup
   List *list = List_new();
   ListNode *a = ListNode_new("a");
   ListNode *b = ListNode_new("b");
   ListNode *c = ListNode_new("c");
+
+  // a b c 
   List_push(list, a);
   List_push(list, b);
   List_push(list, c);
+
+  // Assertions
   assert(list->head == a);
   assert(list->tail == c);
   assert(list->len == 3);
@@ -35,11 +40,37 @@ testList_push() {
   assert(c->prev == b);
 }
 
+void
+testList_unshift() {
+  // Setup
+  List *list = List_new();
+  ListNode *a = ListNode_new("a");
+  ListNode *b = ListNode_new("b");
+  ListNode *c = ListNode_new("c");
+
+  // c b a 
+  List_push(list, a);
+  List_unshift(list, b);
+  List_unshift(list, c);
+
+  // Assertions
+  assert(list->head == c);
+  assert(list->tail == a);
+  assert(list->len == 3);
+  assert(a->next == NULL);
+  assert(a->prev == b);
+  assert(b->next == a);
+  assert(b->prev == c);
+  assert(c->next == b);
+  assert(c->prev == NULL);
+}
+
 int
 main(int argc, const char **argv){
   putchar('\n');
   test(testListNode_new);
   test(testList_push);
+  test(testList_unshift);
   puts("... done\n");
   return 0;
 }
