@@ -7,7 +7,7 @@
 // Helpers
 
 #define test(fn) \
-  puts("... test " # fn "()"); \
+  puts("... test " # fn); \
   test_##fn();
 
 static int freeProxyCalls = 0;
@@ -79,15 +79,18 @@ test_List_unshift() {
 
 void
 test_List_destroy() {
+  // Setup
   List *a = List_new();
   List_destroy(a);
   
+  // a b c
   List *b = List_new();
   List_push(b, ListNode_new("a"));
   List_push(b, ListNode_new("b"));
   List_push(b, ListNode_new("c"));
   List_destroy(b);
 
+  // Assertions
   List *c = List_new();
   c->free = freeProxy;
   List_push(c, ListNode_new(ListNode_new("a")));
@@ -97,13 +100,57 @@ test_List_destroy() {
   assert(freeProxyCalls == 3);
 }
 
+void
+test_ListIterator() {
+  // Setup
+  List *list = List_new();
+  ListNode *tj = ListNode_new("tj");
+  ListNode *taylor = ListNode_new("taylor");
+  ListNode *simon = ListNode_new("simon");
+  
+  // tj taylor simon
+  List_push(list, tj);
+  List_push(list, taylor);
+  List_push(list, simon);
+  
+  // Assertions
+  
+  // From head
+  ListIterator *it = ListIterator_new(list, LIST_HEAD);
+  ListNode *a = ListIterator_next(it);
+  ListNode *b = ListIterator_next(it);
+  ListNode *c = ListIterator_next(it);
+  ListNode *d = ListIterator_next(it);
+  
+  assert(a == tj);
+  assert(b == taylor);
+  assert(c == simon);
+  assert(d == NULL);
+
+  // From tail
+  it = ListIterator_new(list, LIST_TAIL);
+  ListNode *a2 = ListIterator_next(it);
+  ListNode *b2 = ListIterator_next(it);
+  ListNode *c2 = ListIterator_next(it);
+  ListNode *d2 = ListIterator_next(it);
+  
+  assert(a2 == simon);
+  assert(b2 == taylor);
+  assert(c2 == tj);
+  assert(d2 == NULL);
+  ListIterator_destroy(it);
+}
+
 int
 main(int argc, const char **argv){
-  putchar('\n');
+  printf("\nList: %db\n", sizeof(List));
+  printf("ListNode: %db\n", sizeof(ListNode));
+  printf("ListIterator: %db\n\n", sizeof(ListIterator));
   test(ListNode_new);
   test(List_push);
   test(List_unshift);
   test(List_destroy);
+  test(ListIterator);
   puts("... done\n");
   return 0;
 }
