@@ -44,6 +44,7 @@ ListNode *ListNode_destroy(ListNode *self);
  */
 
 List *List_new();
+List *List_push(List *self, ListNode *node);
 List *List_destroy(List *self);
 
 #endif /* __LIST_H__ */
