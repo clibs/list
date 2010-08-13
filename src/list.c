@@ -39,20 +39,40 @@ List_new() {
 }
 
 /*
- * Push the given node to the list. NULL on failure.
+ * Append the given node to the list. NULL on failure.
  */
 
 List *
 List_push(List *self, ListNode *node) {
   if (!node) return NULL;
-  if (self->len == 0) {
-    self->head = self->tail = node;
-    node->prev = node->next = NULL;
-  } else {
+  if (self->len) {
     node->prev = self->tail;
     node->next = NULL;
     self->tail->next = node;
     self->tail = node;
+  } else {
+    self->head = self->tail = node;
+    node->prev = node->next = NULL;
+  }
+  ++self->len;
+  return self;
+}
+
+/*
+ * Prepend the given node to the list. NULL on failure.
+ */
+
+List *
+List_unshift(List *self, ListNode *node) {
+  if (!node) return NULL;
+  if (self->len) {
+    node->next = self->head;
+    node->prev = NULL;
+    self->head->prev = node;
+    self->head = node;
+  } else {
+    self->head = self->tail = node;
+    node->prev = node->next = NULL;
   }
   ++self->len;
   return self;
