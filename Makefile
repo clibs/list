@@ -1,9 +1,12 @@
 
 CC = gcc
-SRCS = src/list.c \
-		   src/test.c
-OBJS = $(SRCS:.c=.o)
 CFLAGS = -std=c99 -Wall
+
+SRCS = src/list.c \
+		   src/node.c \
+		   src/test.c
+
+OBJS = $(SRCS:.c=.o)
 
 all: bin/test
 
