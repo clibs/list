@@ -8,8 +8,14 @@
 #ifndef __LIST_H__
 #define __LIST_H__
 
+// Memory management macros
+
 #ifndef LIST_MALLOC
 #define LIST_MALLOC malloc
+#endif
+
+#ifndef LIST_FREE
+#define LIST_FREE free
 #endif
 
 /*
@@ -32,16 +38,12 @@ typedef struct {
   unsigned int len;
 } List;
 
-/*
- * Node prototypes.
- */
+// Node prototypes.
 
 ListNode *ListNode_new(void *val);
 ListNode *ListNode_destroy(ListNode *self);
 
-/*
- * List prototypes.
- */
+// List prototypes.
 
 List *List_new();
 List *List_push(List *self, ListNode *node);
