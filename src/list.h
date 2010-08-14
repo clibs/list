@@ -10,6 +10,10 @@
 
 #include <stdlib.h>
 
+// Library version
+
+#define LIST_VERSION "0.0.1"
+
 // Memory management macros
 
 #ifndef LIST_MALLOC
