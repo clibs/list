@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "list.h"
 
 // Helpers
@@ -16,6 +17,15 @@ void
 freeProxy(void *val) {
   ++freeProxyCalls;
   free(val);
+}
+
+typedef struct {
+  char *name;
+} User;
+
+int
+User_equal(User *a, User *b) {
+  return 0 == strcmp(a->name, b->name); 
 }
 
 // Tests
@@ -108,12 +118,28 @@ test_List_find() {
   ListNode *ruby = List_push(langs, ListNode_new("ruby"));
   ListNode *erlang = List_push(langs, ListNode_new("erlang"));
 
+  List *users = List_new();
+  users->match = User_equal;
+  User userTJ = { "tj" };
+  User userSimon = { "simon" };
+  User userTaylor = { "taylor" };
+  ListNode *tj = List_push(users, ListNode_new(&userTJ));
+  ListNode *simon = List_push(users, ListNode_new(&userSimon));
+  ListNode *taylor = ListNode_new(&userTaylor);
+
   // Assertions
   ListNode *a = List_find(langs, "js");
   ListNode *b = List_find(langs, "ruby");
   ListNode *c = List_find(langs, "foo");
   assert(a == js);
   assert(b == ruby);
+  assert(c == NULL);
+
+  a = List_find(users, userTJ);
+  b = List_find(users, userSimon);
+  c = List_find(users, userTaylor);
+  assert(a == tj);
+  assert(b == simon);
   assert(c == NULL);
 }
 

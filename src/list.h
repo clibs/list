@@ -48,6 +48,7 @@ typedef struct {
   ListNode *tail;
   unsigned int len;
   void (*free)(void *val);
+  int (*match)(void *a, void *b);
 } List;
 
 /*

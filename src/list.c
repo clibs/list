@@ -19,6 +19,7 @@ List_new() {
   self->head = NULL;
   self->tail = NULL;
   self->free = NULL;
+  self->match = NULL;
   self->len = 0;
   return self;
 }
@@ -88,9 +89,16 @@ List_find(List *self, void *val) {
   ListIterator *it = ListIterator_new(self, LIST_HEAD);
   ListNode *node;
   while (node = ListIterator_next(it)) {
-    if (val == node->val) {
-      ListIterator_destroy(it);
-      return node;
+    if (self->match) {
+      if (self->match(val, node->val)) {
+        ListIterator_destroy(it);
+        return node;
+      }
+    } else {
+      if (val == node->val) {
+        ListIterator_destroy(it);
+        return node;
+      }
     }
   }
   ListIterator_destroy(it);
