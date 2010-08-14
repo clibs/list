@@ -5,7 +5,7 @@
 
 static void
 bm(char *label, void (*fn)()) {
-  printf("... %s", label);
+  printf(" %25s", label);
   fflush(stdout);
   fn();
 }
@@ -20,11 +20,11 @@ start() {
 static void
 stop() {
   float duration = (float) (clock() - startTime) / CLOCKS_PER_SEC;
-  printf(": \x1b[32m%0.4f\x1b[0ms\n", duration);
+  printf(": \x1b[32m%.4f\x1b[0ms\n", duration);
 }
 
 static void
-push() {
+bm_push() {
   start();
   int n = 5000000;
   List *list = List_new();
@@ -34,10 +34,22 @@ push() {
   stop();
 }
 
+static void
+bm_unshift() {
+  start();
+  int n = 5000000;
+  List *list = List_new();
+  while (n--) {
+    List_unshift(list, ListNode_new("foo"));
+  }
+  stop();
+}
+
 int
 main(int argc, const char **argv){
   puts("");
-  bm("5,000,000 nodes pushed", push);  
+  bm("5,000,000 nodes pushed", bm_push);
+  bm("5,000,000 nodes unshifted", bm_unshift);  
   puts("");
   return 0;
 }
