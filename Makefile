@@ -1,6 +1,6 @@
 
 CC = gcc
-CFLAGS = -std=c99 -Wall
+CFLAGS = -O3 -std=c99 -Wall
 
 SRCS = src/list.c \
 		   src/node.c \

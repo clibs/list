@@ -40,12 +40,13 @@ List iteration:
 
     $ make benchmark
 
-    10,000,000 nodes
+	  10,000,000 nodes
     
-                pushed: 0.8945s
-             unshifted: 0.9677s
-      find (last node): 0.1090s
-               iterate: 0.1029s
+	              pushed: 0.5949s
+	           unshifted: 0.5977s
+	    find (last node): 0.0545s
+	             iterate: 0.0558s
+
 ## Testing
 
     $ make test
