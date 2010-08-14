@@ -116,7 +116,6 @@ test_List_find() {
   List *langs = List_new();
   ListNode *js = List_push(langs, ListNode_new("js"));
   ListNode *ruby = List_push(langs, ListNode_new("ruby"));
-  ListNode *erlang = List_push(langs, ListNode_new("erlang"));
 
   List *users = List_new();
   users->match = User_equal;
@@ -166,8 +165,6 @@ test_List_remove() {
   assert(list->len == 1);
   assert(list->head == c);
   assert(list->tail == c);
-  assert(a->next == NULL);
-  assert(a->prev == NULL);
   assert(c->next == NULL);
   assert(c->prev == NULL);
 
@@ -175,19 +172,6 @@ test_List_remove() {
   assert(list->len == 0);
   assert(list->head == NULL);
   assert(list->tail == NULL);
-  assert(a->next == NULL);
-  assert(a->prev == NULL);
-  assert(c->next == NULL);
-  assert(c->prev == NULL);
-
-  List_remove(list, c);
-  assert(list->len == 0);
-  assert(list->head == NULL);
-  assert(list->tail == NULL);
-  assert(a->next == NULL);
-  assert(a->prev == NULL);
-  assert(c->next == NULL);
-  assert(c->prev == NULL);
 }
 
 static void
