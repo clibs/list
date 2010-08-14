@@ -125,7 +125,6 @@ test_List_find() {
   User userTaylor = { "taylor" };
   ListNode *tj = List_push(users, ListNode_new(&userTJ));
   ListNode *simon = List_push(users, ListNode_new(&userSimon));
-  ListNode *taylor = ListNode_new(&userTaylor);
 
   // Assertions
   ListNode *a = List_find(langs, "js");
@@ -135,9 +134,9 @@ test_List_find() {
   assert(b == ruby);
   assert(c == NULL);
 
-  a = List_find(users, userTJ);
-  b = List_find(users, userSimon);
-  c = List_find(users, userTaylor);
+  a = List_find(users, &userTJ);
+  b = List_find(users, &userSimon);
+  c = List_find(users, &userTaylor);
   assert(a == tj);
   assert(b == simon);
   assert(c == NULL);
