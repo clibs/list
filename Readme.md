@@ -17,6 +17,10 @@
     ListNode *ListIterator_next(ListIterator *self);
     void ListIterator_destroy(ListIterator *self);
 
+## Testing
+
+  $ make test
+
 ## License 
 
 (The MIT License)
