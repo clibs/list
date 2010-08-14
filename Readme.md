@@ -36,6 +36,12 @@ List iteration:
     ListIterator_destroy(it);
     List_destroy(langs);
 
+stdout:
+
+    c
+    js
+    ruby
+
 ## Benchmarks
 
     $ make benchmark
