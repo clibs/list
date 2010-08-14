@@ -12,11 +12,11 @@ all: bin/test
 
 bin/test: test.o $(OBJS)
 	@mkdir -p bin
-	$(CC) test.o $(OBJS) -o $@
+	$(CC) $^ -o $@
 
 bin/benchmark: benchmark.o $(OBJS)
 	@mkdir -p bin
-	$(CC) benchmark.o $(OBJS) -o $@
+	$(CC) $^ -o $@
 
 %.o: %.c
 	$(CC) $< $(CFLAGS) -c -o $@
