@@ -104,3 +104,8 @@ List_find(List *self, void *val) {
   ListIterator_destroy(it);
   return NULL;
 }
+
+void 
+List_remove(List *self, ListNode *node) {
+  
+}

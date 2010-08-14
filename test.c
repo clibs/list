@@ -143,6 +143,54 @@ test_List_find() {
 }
 
 static void
+test_List_remove() {
+  // Setup
+  List *list = List_new();
+  ListNode *a = List_push(list, ListNode_new("a"));
+  ListNode *b = List_push(list, ListNode_new("b"));
+  ListNode *c = List_push(list, ListNode_new("c"));
+
+  // Assertions
+  assert(list->len == 3);
+
+  List_remove(list, b);
+  assert(list->len == 2);
+  assert(list->head == a);
+  assert(list->tail == c);
+  assert(a->next == c);
+  assert(a->prev == NULL);
+  assert(c->next == NULL);
+  assert(c->prev == a);
+
+  List_remove(list, a);
+  assert(list->len == 1);
+  assert(list->head == c);
+  assert(list->tail == c);
+  assert(a->next == NULL);
+  assert(a->prev == NULL);
+  assert(c->next == NULL);
+  assert(c->prev == NULL);
+
+  List_remove(list, c);
+  assert(list->len == 0);
+  assert(list->head == NULL);
+  assert(list->tail == NULL);
+  assert(a->next == NULL);
+  assert(a->prev == NULL);
+  assert(c->next == NULL);
+  assert(c->prev == NULL);
+
+  List_remove(list, c);
+  assert(list->len == 0);
+  assert(list->head == NULL);
+  assert(list->tail == NULL);
+  assert(a->next == NULL);
+  assert(a->prev == NULL);
+  assert(c->next == NULL);
+  assert(c->prev == NULL);
+}
+
+static void
 test_ListIterator() {
   // Setup
   List *list = List_new();
@@ -192,6 +240,7 @@ main(int argc, const char **argv){
   test(List_push);
   test(List_unshift);
   test(List_find);
+  test(List_remove);
   test(List_destroy);
   test(ListIterator);
   puts("... \x1b[32m100%\x1b[0m\n");
