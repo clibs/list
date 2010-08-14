@@ -1,7 +1,7 @@
 
 # List
 
- C Doubly linked list implementation.
+ C doubly linked list implementation.
 
 ## API
 
@@ -16,6 +16,25 @@
     ListIterator *ListIterator_new(List *list, ListDirection direction);
     ListNode *ListIterator_next(ListIterator *self);
     void ListIterator_destroy(ListIterator *self);
+
+## Examples
+
+List iteration:
+
+    List *langs = List_new();
+		
+		ListNode *c = List_push(langs, ListNode_new("c"));
+		ListNode *js = List_push(langs, ListNode_new("js"));
+		ListNode *ruby = List_push(langs, ListNode_new("ruby"));
+
+		ListIterator *it = ListIterator_new(langs, LIST_HEAD);
+		ListNode *node;
+		while ((node = ListIterator_next(it))) {
+			puts(node->val);
+		}
+		
+		ListIterator_destroy(it);
+    List_destroy(langs);
 
 ## Testing
 
