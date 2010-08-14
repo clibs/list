@@ -66,8 +66,9 @@ ListNode *ListNode_new(void *val);
 // List prototypes.
 
 List *List_new();
-List *List_push(List *self, ListNode *node);
-List *List_unshift(List *self, ListNode *node);
+ListNode *List_push(List *self, ListNode *node);
+ListNode *List_unshift(List *self, ListNode *node);
+ListNode *List_find(List *self, void *val);
 void List_destroy(List *self);
 
 // List iterator prototypes.

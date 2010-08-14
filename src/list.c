@@ -42,10 +42,11 @@ List_destroy(List *self) {
 }
 
 /*
- * Append the given node to the list. NULL on failure.
+ * Append the given node to the list
+ * and return the node, NULL on failure.
  */
 
-List *
+ListNode *
 List_push(List *self, ListNode *node) {
   if (!node) return NULL;
   if (self->len) {
@@ -58,14 +59,15 @@ List_push(List *self, ListNode *node) {
     node->prev = node->next = NULL;
   }
   ++self->len;
-  return self;
+  return node;
 }
 
 /*
- * Prepend the given node to the list. NULL on failure.
+ * Prepend the given node to the list 
+ * and return the node, NULL on failure.
  */
 
-List *
+ListNode *
 List_unshift(List *self, ListNode *node) {
   if (!node) return NULL;
   if (self->len) {
@@ -78,5 +80,19 @@ List_unshift(List *self, ListNode *node) {
     node->prev = node->next = NULL;
   }
   ++self->len;
-  return self;
+  return node;
+}
+
+ListNode *
+List_find(List *self, void *val) {
+  ListIterator *it = ListIterator_new(self, LIST_HEAD);
+  ListNode *node;
+  while (node = ListIterator_next(it)) {
+    if (val == node->val) {
+      ListIterator_destroy(it);
+      return node;
+    }
+  }
+  ListIterator_destroy(it);
+  return NULL;
 }
