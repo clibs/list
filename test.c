@@ -23,21 +23,21 @@ typedef struct {
   char *name;
 } User;
 
-int
+static int
 User_equal(User *a, User *b) {
   return 0 == strcmp(a->name, b->name); 
 }
 
 // Tests
 
-void
+static void
 test_ListNode_new() {
   char *val = "some value";
   ListNode *node = ListNode_new(val);
   assert(node->val == val);
 }
 
-void
+static void
 test_List_push() {
   // Setup
   List *list = List_new();
@@ -62,7 +62,7 @@ test_List_push() {
   assert(c->prev == b);
 }
 
-void
+static void
 test_List_unshift() {
   // Setup
   List *list = List_new();
@@ -87,7 +87,7 @@ test_List_unshift() {
   assert(c->prev == NULL);
 }
 
-void
+static void
 test_List_destroy() {
   // Setup
   List *a = List_new();
@@ -110,7 +110,7 @@ test_List_destroy() {
   assert(freeProxyCalls == 3);
 }
 
-void
+static void
 test_List_find() {
   // Setup
   List *langs = List_new();
@@ -142,7 +142,7 @@ test_List_find() {
   assert(c == NULL);
 }
 
-void
+static void
 test_ListIterator() {
   // Setup
   List *list = List_new();

@@ -88,7 +88,7 @@ ListNode *
 List_find(List *self, void *val) {
   ListIterator *it = ListIterator_new(self, LIST_HEAD);
   ListNode *node;
-  while (node = ListIterator_next(it)) {
+  while ((node = ListIterator_next(it))) {
     if (self->match) {
       if (self->match(val, node->val)) {
         ListIterator_destroy(it);
