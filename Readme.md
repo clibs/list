@@ -22,18 +22,18 @@
 List iteration:
 
     List *langs = List_new();
-		
-		ListNode *c = List_push(langs, ListNode_new("c"));
-		ListNode *js = List_push(langs, ListNode_new("js"));
-		ListNode *ruby = List_push(langs, ListNode_new("ruby"));
-
-		ListIterator *it = ListIterator_new(langs, LIST_HEAD);
-		ListNode *node;
-		while ((node = ListIterator_next(it))) {
-			puts(node->val);
-		}
-		
-		ListIterator_destroy(it);
+    
+    ListNode *c = List_push(langs, ListNode_new("c"));
+    ListNode *js = List_push(langs, ListNode_new("js"));
+    ListNode *ruby = List_push(langs, ListNode_new("ruby"));
+    
+    ListIterator *it = ListIterator_new(langs, LIST_HEAD);
+    ListNode *node;
+    while ((node = ListIterator_next(it))) {
+    	puts(node->val);
+    }
+    
+    ListIterator_destroy(it);
     List_destroy(langs);
 
 ## Benchmarks
