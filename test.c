@@ -8,7 +8,7 @@
 // Helpers
 
 #define test(fn) \
-  puts("... test " # fn); \
+  puts("... \x1b[33m" # fn "\x1b[0m"); \
   test_##fn();
 
 static int freeProxyCalls = 0;
@@ -194,6 +194,6 @@ main(int argc, const char **argv){
   test(List_find);
   test(List_destroy);
   test(ListIterator);
-  puts("... done\n");
+  puts("... \x1b[32m100%\x1b[0m\n");
   return 0;
 }
