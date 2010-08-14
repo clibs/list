@@ -14,6 +14,10 @@ bin/test: test.o $(OBJS)
 	@mkdir -p bin
 	$(CC) test.o $(OBJS) -o $@
 
+bin/benchmark: benchmark.o $(OBJS)
+	@mkdir -p bin
+	$(CC) benchmark.o $(OBJS) -o $@
+
 %.o: %.c
 	$(CC) $< $(CFLAGS) -c -o $@
 
@@ -23,6 +27,9 @@ clean:
 	rm -f src/*.o
 
 test: bin/test
-	@./bin/test
+	@./$<
 
-.PHONY: test clean
+benchmark: bin/benchmark
+	@./$<
+
+.PHONY: test benchmark clean
