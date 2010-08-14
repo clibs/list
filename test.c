@@ -116,7 +116,6 @@ test_List_find() {
   List *langs = List_new();
   ListNode *js = List_push(langs, ListNode_new("js"));
   ListNode *ruby = List_push(langs, ListNode_new("ruby"));
-  ListNode *erlang = List_push(langs, ListNode_new("erlang"));
 
   List *users = List_new();
   users->match = User_equal;
@@ -140,6 +139,39 @@ test_List_find() {
   assert(a == tj);
   assert(b == simon);
   assert(c == NULL);
+}
+
+static void
+test_List_remove() {
+  // Setup
+  List *list = List_new();
+  ListNode *a = List_push(list, ListNode_new("a"));
+  ListNode *b = List_push(list, ListNode_new("b"));
+  ListNode *c = List_push(list, ListNode_new("c"));
+
+  // Assertions
+  assert(list->len == 3);
+
+  List_remove(list, b);
+  assert(list->len == 2);
+  assert(list->head == a);
+  assert(list->tail == c);
+  assert(a->next == c);
+  assert(a->prev == NULL);
+  assert(c->next == NULL);
+  assert(c->prev == a);
+
+  List_remove(list, a);
+  assert(list->len == 1);
+  assert(list->head == c);
+  assert(list->tail == c);
+  assert(c->next == NULL);
+  assert(c->prev == NULL);
+
+  List_remove(list, c);
+  assert(list->len == 0);
+  assert(list->head == NULL);
+  assert(list->tail == NULL);
 }
 
 static void
@@ -192,6 +224,7 @@ main(int argc, const char **argv){
   test(List_push);
   test(List_unshift);
   test(List_find);
+  test(List_remove);
   test(List_destroy);
   test(ListIterator);
   puts("... \x1b[32m100%\x1b[0m\n");

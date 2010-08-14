@@ -84,6 +84,10 @@ List_unshift(List *self, ListNode *node) {
   return node;
 }
 
+/*
+ * Return the node associated to val or NULL.
+ */
+
 ListNode *
 List_find(List *self, void *val) {
   ListIterator *it = ListIterator_new(self, LIST_HEAD);
@@ -103,4 +107,20 @@ List_find(List *self, void *val) {
   }
   ListIterator_destroy(it);
   return NULL;
+}
+
+/*
+ * Remove the given node from the list.
+ */
+
+void 
+List_remove(List *self, ListNode *node) {
+  node->prev
+    ? (node->prev->next = node->next)
+    : (self->head = node->next);
+  node->next
+    ? (node->next->prev = node->prev)
+    : (self->tail = node->prev);
+  if (self->free) self->free(node);
+  --self->len;
 }
