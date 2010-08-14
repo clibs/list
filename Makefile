@@ -1,4 +1,5 @@
 
+AR = ar
 CC = gcc
 CFLAGS = -O3 -std=c99 -Wall
 
@@ -8,7 +9,11 @@ SRCS = src/list.c \
 
 OBJS = $(SRCS:.c=.o)
 
-all: bin/test
+all: build/liblist.a
+
+build/liblist.a: $(OBJS)
+	@mkdir -p build
+	$(AR) rcs $@ $^
 
 bin/test: test.o $(OBJS)
 	@mkdir -p bin
@@ -22,9 +27,7 @@ bin/benchmark: benchmark.o $(OBJS)
 	$(CC) $< $(CFLAGS) -c -o $@
 
 clean:
-	rm -fr bin
-	rm -f *.o
-	rm -f src/*.o
+	rm -fr bin build *.o src/*.o
 
 test: bin/test
 	@./$<
