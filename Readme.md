@@ -36,9 +36,19 @@ List iteration:
 		ListIterator_destroy(it);
     List_destroy(langs);
 
+## Benchmarks
+
+    $ make benchmark
+
+    10,000,000 nodes
+    
+                pushed: 0.8945s
+             unshifted: 0.9677s
+      find (last node): 0.1090s
+               iterate: 0.1029s
 ## Testing
 
-  $ make test
+    $ make test
 
 ## License 
 
