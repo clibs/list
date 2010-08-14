@@ -101,6 +101,23 @@ test_List_destroy() {
 }
 
 void
+test_List_find() {
+  // Setup
+  List *langs = List_new();
+  ListNode *js = List_push(langs, ListNode_new("js"));
+  ListNode *ruby = List_push(langs, ListNode_new("ruby"));
+  ListNode *erlang = List_push(langs, ListNode_new("erlang"));
+
+  // Assertions
+  ListNode *a = List_find(langs, "js");
+  ListNode *b = List_find(langs, "ruby");
+  ListNode *c = List_find(langs, "foo");
+  assert(a == js);
+  assert(b == ruby);
+  assert(c == NULL);
+}
+
+void
 test_ListIterator() {
   // Setup
   List *list = List_new();
@@ -149,6 +166,7 @@ main(int argc, const char **argv){
   test(ListNode_new);
   test(List_push);
   test(List_unshift);
+  test(List_find);
   test(List_destroy);
   test(ListIterator);
   puts("... done\n");
