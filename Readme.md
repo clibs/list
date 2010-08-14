@@ -5,12 +5,17 @@
 
 ## API
 
-		List *List_new();
-		List *List_push(List *self, ListNode *node);
-		List *List_unshift(List *self, ListNode *node);
-		void List_destroy(List *self);
-
     ListNode *ListNode_new(void *val);
+    
+    List *List_new();
+    ListNode *List_push(List *self, ListNode *node);
+    ListNode *List_unshift(List *self, ListNode *node);
+    ListNode *List_find(List *self, void *val);
+    void List_destroy(List *self);
+    
+    ListIterator *ListIterator_new(List *list, ListDirection direction);
+    ListNode *ListIterator_next(ListIterator *self);
+    void ListIterator_destroy(ListIterator *self);
 
 ## License 
 
