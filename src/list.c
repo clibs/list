@@ -115,8 +115,15 @@ List_find(List *self, void *val) {
 
 ListNode *
 List_at(List *self, int index) {
+  ListDirection direction = LIST_HEAD;
+
+  if (index < 0) {
+    direction = LIST_TAIL;
+    index = ~index;
+  }
+
   if (index < self->len) {
-    ListIterator *it = ListIterator_new(self, LIST_HEAD);
+    ListIterator *it = ListIterator_new(self, direction);
     ListNode *node = ListIterator_next(it);
     while (index--) {
       node = ListIterator_next(it);
@@ -124,6 +131,7 @@ List_at(List *self, int index) {
     ListIterator_destroy(it);
     return node;
   }
+
   return NULL;
 }
 

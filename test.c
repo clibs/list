@@ -105,6 +105,11 @@ test_List_at() {
   assert(b == List_at(list, 1));
   assert(c == List_at(list, 2));
   assert(NULL == List_at(list, 3));
+
+  assert(c == List_at(list, -1));
+  assert(b == List_at(list, -2));
+  assert(a == List_at(list, -3));
+  assert(NULL == List_at(list, -4));
 }
 
 static void
