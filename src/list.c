@@ -110,6 +110,24 @@ List_find(List *self, void *val) {
 }
 
 /*
+ * Return the node at the given index or NULL.
+ */
+
+ListNode *
+List_at(List *self, int index) {
+  if (index < self->len) {
+    ListIterator *it = ListIterator_new(self, LIST_HEAD);
+    ListNode *node = ListIterator_next(it);
+    while (index--) {
+      node = ListIterator_next(it);
+    };
+    ListIterator_destroy(it);
+    return node;
+  }
+  return NULL;
+}
+
+/*
  * Remove the given node from the list.
  */
 

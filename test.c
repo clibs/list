@@ -88,6 +88,26 @@ test_List_unshift() {
 }
 
 static void
+test_List_at() {
+  // Setup
+  List *list = List_new();
+  ListNode *a = ListNode_new("a");
+  ListNode *b = ListNode_new("b");
+  ListNode *c = ListNode_new("c");
+
+  // a b c
+  List_push(list, a);
+  List_push(list, b);
+  List_push(list, c);
+
+  // Assertions
+  assert(a == List_at(list, 0));
+  assert(b == List_at(list, 1));
+  assert(c == List_at(list, 2));
+  assert(NULL == List_at(list, 3));
+}
+
+static void
 test_List_destroy() {
   // Setup
   List *a = List_new();
@@ -224,6 +244,7 @@ main(int argc, const char **argv){
   test(List_push);
   test(List_unshift);
   test(List_find);
+  test(List_at);
   test(List_remove);
   test(List_destroy);
   test(ListIterator);

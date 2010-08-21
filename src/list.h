@@ -74,6 +74,7 @@ List *List_new();
 ListNode *List_push(List *self, ListNode *node);
 ListNode *List_unshift(List *self, ListNode *node);
 ListNode *List_find(List *self, void *val);
+ListNode *List_at(List *self, int index);
 void List_remove(List *self, ListNode *node);
 void List_destroy(List *self);
 
