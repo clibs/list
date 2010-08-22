@@ -9,23 +9,23 @@
 
  Allocate and initialize a `List`.
 
-### ListNode *ListNode_new(void *val)
+### ListNode \*ListNode_new(void *val)
 
  Allocate and initialize a `ListNode` with the given _val_.
 
-### List_push(List *self, ListNode *node)
+### List_push(List \*self, ListNode *node)
 
  Append _node_ to _self_, returning _node_.
 
-###  ListNode *List_unshift(List *self, ListNode *node)
+###  ListNode \*List_unshift(List \*self, ListNode *node)
 
  Prepend _node_ to _self_, returning _node_.
 
-### ListNode *List_find(List *self, void *val)
+### ListNode \*List_find(List \*self, void *val)
 
  Return the `ListNode` containing _val_ or __NULL__.
 
-### ListNode *List_at(List *self, int index)
+### ListNode \*List_at(List *self, int index)
 
  Return the `ListNode` at the given _index_, where _index_
  may also be a negative integer indicating an index from the
@@ -36,7 +36,7 @@
     List_at(list, -1); // last
     List_at(list, -3); // third last
 
-### void List_remove(List *self, ListNode *node)
+### void List_remove(List \*self, ListNode *node)
 
   Remove _node_ from the list.
 
@@ -44,7 +44,7 @@
 
   Free the list and all nodes.
 
-### ListIterator *ListIterator_new(List *list, ListDirection direction)
+### ListIterator \*ListIterator_new(List *list, ListDirection direction)
 
   Allocate and initialize a `ListIterator` with the given _direction_,
   where _direction_ may be __LIST_HEAD__ or __LIST_TAIL__.
