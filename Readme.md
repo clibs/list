@@ -22,8 +22,8 @@
 
  Append _node_ to _self_, returning _node_.
  
-   List_push(list, ListNode_new("value"));
-   list->tail->val; // "value"
+     List_push(list, ListNode_new("value"));
+     list->tail->val; // "value"
 
 ###  ListNode \*List_unshift(List \*self, ListNode *node)
 
