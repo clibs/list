@@ -49,7 +49,7 @@
   Allocate and initialize a `ListIterator` with the given _direction_,
   where _direction_ may be __LIST_HEAD__ or __LIST_TAIL__.
 
-### ListNode *ListIterator_next(ListIterator *self)
+### ListNode \*ListIterator_next(ListIterator *self)
 
   Return the next `ListNode` or __NULL__.
 
@@ -85,8 +85,6 @@ stdout:
 ## Benchmarks
 
     $ make benchmark
-
-yields:
 
     10,000,000 nodes
 
