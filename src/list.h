@@ -12,7 +12,7 @@
 
 // Library version
 
-#define LIST_VERSION "0.0.1"
+#define LIST_VERSION "0.0.2"
 
 // Memory management macros
 
