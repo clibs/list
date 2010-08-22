@@ -5,19 +5,57 @@
 
 ## API
 
-    ListNode *ListNode_new(void *val);
-    
-    List *List_new();
-    ListNode *List_push(List *self, ListNode *node);
-    ListNode *List_unshift(List *self, ListNode *node);
-    ListNode *List_find(List *self, void *val);
-    ListNode *List_at(List *self, int index);
-    void List_remove(List *self, ListNode *node);
-    void List_destroy(List *self);
-    
-    ListIterator *ListIterator_new(List *list, ListDirection direction);
-    ListNode *ListIterator_next(ListIterator *self);
-    void ListIterator_destroy(ListIterator *self);
+### List *List_new();
+
+ Allocate and initialize a `List`.
+
+### ListNode *ListNode_new(void *val)
+
+ Allocate and initialize a `ListNode` with the given _val_.
+
+### List_push(List *self, ListNode *node)
+
+ Append _node_ to _self_, returning _node_.
+
+###  ListNode *List_unshift(List *self, ListNode *node)
+
+ Prepend _node_ to _self_, returning _node_.
+
+### ListNode *List_find(List *self, void *val)
+
+ Return the `ListNode` containing _val_ or __NULL__.
+
+### ListNode *List_at(List *self, int index)
+
+ Return the `ListNode` at the given _index_, where _index_
+ may also be a negative integer indicating an index from the
+ list _tail_.
+
+    List_at(list, 0);  // first
+    List_at(list, 1);  // second
+    List_at(list, -1); // last
+    List_at(list, -3); // third last
+
+### void List_remove(List *self, ListNode *node)
+
+  Remove _node_ from the list.
+
+### void List_destroy(List *self)
+
+  Free the list and all nodes.
+
+### ListIterator *ListIterator_new(List *list, ListDirection direction)
+
+  Allocate and initialize a `ListIterator` with the given _direction_,
+  where _direction_ may be __LIST_HEAD__ or __LIST_TAIL__.
+
+### ListNode *ListIterator_next(ListIterator *self)
+
+  Return the next `ListNode` or __NULL__.
+
+### void ListIterator_destroy(ListIterator *self);
+
+  Free the iterator only.
 
 ## Examples
 
@@ -48,12 +86,19 @@ stdout:
 
     $ make benchmark
 
-	  10,000,000 nodes
-    
-	              pushed: 0.5949s
-	           unshifted: 0.5977s
-	    find (last node): 0.0545s
-	             iterate: 0.0558s
+yields:
+
+    10,000,000 nodes
+
+                pushed: 0.5934s
+             unshifted: 0.6018s
+      find (last node): 0.0546s
+               iterate: 0.0717s
+           at(100,000): 0.0006s
+         at(1,000,000): 0.0056s
+          at(-100,000): 0.0006s
+
+
 
 ## Testing
 
