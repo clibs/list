@@ -93,7 +93,7 @@ bm_at2() {
 static void
 bm_at3() {
   start();
-  List_at(list, -10000);
+  List_at(list, -100000);
   stop();
 }
 
@@ -109,7 +109,7 @@ main(int argc, const char **argv){
   bm("iterate", bm_iterate);  
   bm("at(100,000)", bm_at);  
   bm("at(1,000,000)", bm_at2);  
-  bm("at(-10000)", bm_at3);  
+  bm("at(-100,000)", bm_at3);  
   puts("");
   return 0;
 }
