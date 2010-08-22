@@ -8,22 +8,35 @@
 ### List *List_new();
 
  Allocate and initialize a `List`.
+ 
+    List *myList = List_new();
 
 ### ListNode \*ListNode_new(void *val)
 
  Allocate and initialize a `ListNode` with the given _val_.
 
-### List_push(List \*self, ListNode *node)
+    ListNode *node = ListNode_new("my value");
+    node->val; // "my value"
+
+### ListNode \* List_push(List \*self, ListNode *node)
 
  Append _node_ to _self_, returning _node_.
+ 
+   List_push(list, ListNode_new("value"));
+   list->tail->val; // "value"
 
 ###  ListNode \*List_unshift(List \*self, ListNode *node)
 
  Prepend _node_ to _self_, returning _node_.
 
+    List_unshift(list, ListNode_new("value"));
+    list->head->val; // "value"
+
 ### ListNode \*List_find(List \*self, void *val)
 
  Return the `ListNode` containing _val_ or __NULL__.
+
+    ListNode *node = List_find(list, "some value");
 
 ### ListNode \*List_at(List *self, int index)
 
@@ -40,14 +53,24 @@
 
   Remove _node_ from the list.
 
+    List_remove(list, node);
+
 ### void List_destroy(List *self)
 
   Free the list and all nodes.
+
+    List_destroy(list);
 
 ### ListIterator \*ListIterator_new(List *list, ListDirection direction)
 
   Allocate and initialize a `ListIterator` with the given _direction_,
   where _direction_ may be __LIST_HEAD__ or __LIST_TAIL__.
+
+    ListNode *node;
+    ListIterator *it = ListIterator_new(list, LIST_HEAD);
+    while ((node = ListIterator_next(it))) {
+    	puts(node->val);
+    }  
 
 ### ListNode \*ListIterator_next(ListIterator *self)
 
@@ -56,6 +79,8 @@
 ### void ListIterator_destroy(ListIterator *self);
 
   Free the iterator only.
+
+    ListIterator_destroy(it);
 
 ## Examples
 
@@ -67,8 +92,8 @@ List iteration:
     ListNode *js = List_push(langs, ListNode_new("js"));
     ListNode *ruby = List_push(langs, ListNode_new("ruby"));
     
-    ListIterator *it = ListIterator_new(langs, LIST_HEAD);
     ListNode *node;
+    ListIterator *it = ListIterator_new(langs, LIST_HEAD);
     while ((node = ListIterator_next(it))) {
     	puts(node->val);
     }
