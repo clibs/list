@@ -5,6 +5,8 @@
 
 ## API
 
+ Below is the public api currently provided by "list".
+
 ## List *List_new();
 
  Allocate and initialize a `List`.
