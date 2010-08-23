@@ -136,7 +136,7 @@ List_at(List *self, int index) {
 }
 
 /*
- * Remove the given node from the list.
+ * Remove the given node from the list, freeing it and it's value.
  */
 
 void 

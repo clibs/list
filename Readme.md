@@ -53,7 +53,7 @@
 
 ## void List_remove(List \*self, ListNode *node)
 
-  Remove _node_ from the list.
+  Remove _node_ from the list, freeing it and it's value.
 
     List_remove(list, node);
 
