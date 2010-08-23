@@ -64,6 +64,15 @@ List_push(List *self, ListNode *node) {
 }
 
 /*
+ * Return the last node in the list, or NULL.
+ */
+
+ListNode *
+List_pop(List *self) {
+
+}
+
+/*
  * Prepend the given node to the list 
  * and return the node, NULL on failure.
  */

@@ -212,6 +212,12 @@ test_List_pop() {
   
   assert(c == List_pop(list));
   assert(2 == list->len);
+  assert(a == list->head);
+  assert(b == list->tail);
+  assert(a == b->prev);
+  assert(NULL == b->next);
+  assert(NULL == c->prev);
+  assert(NULL == c->next);
   
   assert(b == List_pop(list));
   assert(1 == list->len);
