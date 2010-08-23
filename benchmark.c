@@ -74,6 +74,34 @@ bm_iterate() {
   stop();
 }
 
+static void
+bm_pop() {
+  int n = nnodes;
+  List *list = List_new();
+  while (n--) {
+    List_unshift(list, ListNode_new("foo"));
+  }
+  ListNode *node;
+  start();
+  while ((node = List_pop(list)))
+    ;
+  stop();
+}
+
+static void
+bm_shift() {
+  int n = nnodes;
+  List *list = List_new();
+  while (n--) {
+    List_unshift(list, ListNode_new("foo"));
+  }
+  ListNode *node;
+  start();
+  while ((node = List_shift(list)))
+    ;
+  stop();
+}
+
 static List *list;
 
 static void
@@ -105,6 +133,8 @@ main(int argc, const char **argv){
   puts("\n 10,000,000 nodes\n");
   bm("pushed", bm_push);
   bm("unshifted", bm_unshift);  
+  bm("pop", bm_pop);  
+  bm("shift", bm_shift);  
   bm("find (last node)", bm_find);  
   bm("iterate", bm_iterate);  
   bm("at(100,000)", bm_at);  
