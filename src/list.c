@@ -69,7 +69,12 @@ List_push(List *self, ListNode *node) {
 
 ListNode *
 List_pop(List *self) {
-
+  if (!self->len) return NULL;
+  --self->len;
+  ListNode *node = self->tail;
+  self->tail = node->prev;
+  node->next = node->prev = NULL;
+  return node;
 }
 
 /*

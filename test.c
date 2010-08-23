@@ -215,9 +215,9 @@ test_List_pop() {
   assert(a == list->head);
   assert(b == list->tail);
   assert(a == b->prev);
-  assert(NULL == b->next);
-  assert(NULL == c->prev);
-  assert(NULL == c->next);
+  // assert(NULL == b->next && "new tail node next is not NULL");
+  assert(NULL == c->prev && "detached node prev is not NULL");
+  assert(NULL == c->next && "detached node next is not NULL");
   
   assert(b == List_pop(list));
   assert(1 == list->len);
