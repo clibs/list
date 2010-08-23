@@ -64,6 +64,23 @@ List_push(List *self, ListNode *node) {
 }
 
 /*
+ * Return / detach the last node in the list, or NULL.
+ */
+
+ListNode *
+List_pop(List *self) {
+  if (!self->len) return NULL;
+  ListNode *node = self->tail;
+  if (--self->len) {
+    (self->tail = node->prev)->next = NULL;
+  } else {
+    self->tail = self->head = NULL;
+  }
+  node->next = node->prev = NULL;
+  return node;
+}
+
+/*
  * Prepend the given node to the list 
  * and return the node, NULL on failure.
  */
