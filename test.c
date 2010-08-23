@@ -200,6 +200,30 @@ test_List_remove() {
 }
 
 static void
+test_List_pop() {
+  // Setup
+  List *list = List_new();
+  ListNode *a = List_push(list, ListNode_new("a"));
+  ListNode *b = List_push(list, ListNode_new("b"));
+  ListNode *c = List_push(list, ListNode_new("c"));
+
+  // Assertions
+  assert(3 == list->len);
+  
+  assert(c == List_pop(list));
+  assert(2 == list->len);
+  
+  assert(b == List_pop(list));
+  assert(1 == list->len);
+  
+  assert(a == List_pop(list));
+  assert(0 == list->len);
+  
+  assert(NULL == List_pop(list));
+  assert(0 == list->len);
+}
+
+static void
 test_ListIterator() {
   // Setup
   List *list = List_new();
@@ -251,6 +275,7 @@ main(int argc, const char **argv){
   test(List_find);
   test(List_at);
   test(List_remove);
+  test(List_pop);
   test(List_destroy);
   test(ListIterator);
   puts("... \x1b[32m100%\x1b[0m\n");
