@@ -64,7 +64,7 @@ List_push(List *self, ListNode *node) {
 }
 
 /*
- * Return the last node in the list, or NULL.
+ * Return / detach the last node in the list, or NULL.
  */
 
 ListNode *

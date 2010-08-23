@@ -27,6 +27,12 @@
      List_push(list, ListNode_new("value"));
      list->tail->val; // "value"
 
+## ListNode \* List_pop(List \*self)
+
+  Return / detach node from the end of the list, or __NULL__.
+
+    ListNode *last = List_pop(names);
+
 ##  ListNode \*List_unshift(List \*self, ListNode *node)
 
  Prepend _node_ to _self_, returning _node_.
