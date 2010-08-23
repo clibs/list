@@ -243,7 +243,7 @@ test_List_shift() {
 
   // Assertions
   assert(3 == list->len);
-  
+
   assert(a == List_shift(list));
   assert(2 == list->len);
   assert(b == list->head);
