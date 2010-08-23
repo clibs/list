@@ -72,7 +72,7 @@ List_pop(List *self) {
   if (!self->len) return NULL;
   ListNode *node = self->tail;
   if (--self->len) {
-    self->tail = node->prev;
+    (self->tail = node->prev)->next = NULL;
   } else {
     self->tail = self->head = NULL;
   }
