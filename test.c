@@ -234,6 +234,36 @@ test_List_pop() {
 }
 
 static void
+test_List_shift() {
+  // Setup
+  List *list = List_new();
+  ListNode *a = List_push(list, ListNode_new("a"));
+  ListNode *b = List_push(list, ListNode_new("b"));
+  ListNode *c = List_push(list, ListNode_new("c"));
+
+  // Assertions
+  assert(3 == list->len);
+
+  assert(a == List_shift(list));
+  assert(2 == list->len);
+  assert(b == list->head);
+  assert(NULL == list->head->prev && "new head node prev is not NULL");
+  assert(NULL == a->prev && "detached node prev is not NULL");
+  assert(NULL == a->next && "detached node next is not NULL");
+  
+  assert(b == List_shift(list));
+  assert(1 == list->len);
+  
+  assert(c == List_shift(list));
+  assert(0 == list->len);
+  assert(NULL == list->head);
+  assert(NULL == list->tail);
+  
+  assert(NULL == List_shift(list));
+  assert(0 == list->len);
+}
+
+static void
 test_ListIterator() {
   // Setup
   List *list = List_new();
@@ -286,6 +316,7 @@ main(int argc, const char **argv){
   test(List_at);
   test(List_remove);
   test(List_pop);
+  test(List_shift);
   test(List_destroy);
   test(ListIterator);
   puts("... \x1b[32m100%\x1b[0m\n");

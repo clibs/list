@@ -81,6 +81,23 @@ List_pop(List *self) {
 }
 
 /*
+ * Return / detach the first node in the list, or NULL.
+ */
+
+ListNode *
+List_shift(List *self) {
+  if (!self->len) return NULL;
+  ListNode *node = self->head;
+  if (--self->len) {
+    (self->head = node->next)->prev = NULL;
+  } else {
+    self->head = self->tail = NULL;
+  }
+  node->next = node->prev = NULL;
+  return node;
+}
+
+/*
  * Prepend the given node to the list 
  * and return the node, NULL on failure.
  */
