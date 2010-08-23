@@ -148,5 +148,6 @@ List_remove(List *self, ListNode *node) {
     ? (node->next->prev = node->prev)
     : (self->tail = node->prev);
   if (self->free) self->free(node);
+  LIST_FREE(node);
   --self->len;
 }
