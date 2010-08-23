@@ -83,6 +83,7 @@ void List_destroy(List *self);
 // List iterator prototypes.
 
 ListIterator *ListIterator_new(List *list, ListDirection direction);
+ListIterator *ListIterator_newFromNode(ListNode *node, ListDirection direction);
 ListNode *ListIterator_next(ListIterator *self);
 void ListIterator_destroy(ListIterator *self);
 

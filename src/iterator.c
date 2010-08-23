@@ -8,18 +8,29 @@
 #include "list.h"
 
 /*
- * Allocate a nwe ListIterator. NULL on failure.
+ * Allocate a new ListIterator. NULL on failure.
  * Accepts a direction, which may be LIST_HEAD or LIST_TAIL.
  */
 
 ListIterator *
 ListIterator_new(List *list, ListDirection direction) {
+  ListNode *node = direction == LIST_HEAD
+    ? list->head
+    : list->tail;
+  return ListIterator_newFromNode(node, direction);
+}
+
+/*
+ * Allocate a new ListIterator with the given start
+ * node. NULL on failure. 
+ */
+
+ListIterator *
+ListIterator_newFromNode(ListNode *node, ListDirection direction) {
   ListIterator *self;
   if (!(self = LIST_MALLOC(sizeof(ListIterator))))
     return NULL;
-  self->next = direction == LIST_HEAD
-    ? list->head
-    : list->tail;
+  self->next = node;
   self->direction = direction;
   return self;
 }
