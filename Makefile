@@ -15,9 +15,11 @@ all: build/liblist.a
 
 install: all
 	cp -f build/liblist.a $(PREFIX)/lib/liblist.a
+	cp -f src/list.h $(PREFIX)/include/list.h
 
 uninstall:
 	rm -f $(PREFIX)/lib/liblist.a
+	rm -f $(PREFIX)/include/list.h
 
 build/liblist.a: $(OBJS)
 	@mkdir -p build
