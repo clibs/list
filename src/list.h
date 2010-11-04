@@ -8,6 +8,10 @@
 #ifndef __LIST_H__
 #define __LIST_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdlib.h>
 
 // Library version
@@ -86,5 +90,9 @@ ListIterator *ListIterator_new(List *list, ListDirection direction);
 ListIterator *ListIterator_newFromNode(ListNode *node, ListDirection direction);
 ListNode *ListIterator_next(ListIterator *self);
 void ListIterator_destroy(ListIterator *self);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __LIST_H__ */
