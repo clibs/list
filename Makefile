@@ -1,6 +1,8 @@
 
-AR = ar
-CC = gcc
+AR ?= ar
+CC ?= gcc
+PREFIX ?= /usr/local
+
 CFLAGS = -O3 -std=c99 -Wall
 
 SRCS = src/list.c \
@@ -10,6 +12,12 @@ SRCS = src/list.c \
 OBJS = $(SRCS:.c=.o)
 
 all: build/liblist.a
+
+install: all
+	cp -f build/liblist.a $(PREFIX)/lib/liblist.a
+
+uninstall:
+	rm -f $(PREFIX)/lib/liblist.a
 
 build/liblist.a: $(OBJS)
 	@mkdir -p build
@@ -35,4 +43,4 @@ test: bin/test
 benchmark: bin/benchmark
 	@./$<
 
-.PHONY: test benchmark clean
+.PHONY: test benchmark clean install uninstall
