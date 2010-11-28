@@ -16,7 +16,7 @@ extern "C" {
 
 // Library version
 
-#define LIST_VERSION "0.0.2"
+#define LIST_VERSION "0.0.3"
 
 // Memory management macros
 

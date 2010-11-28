@@ -1,4 +1,14 @@
 
+0.0.3 / 2010-11-27 
+==================
+
+  * Added `make install`
+  * Added `list_shift()`
+  * Added `list_pop()`
+  * Lowercased function names and typedefs
+  * Wrap with extern "C" when \_\_cplusplus
+  * Installing `list.h`
+
 0.0.2 / 2010-08-21 
 ==================
 
