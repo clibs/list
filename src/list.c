@@ -8,13 +8,13 @@
 #include "list.h"
 
 /*
- * Allocate a new List. NULL on failure.
+ * Allocate a new list_t. NULL on failure.
  */
 
-List *
-List_new() {
-  List *self;
-  if (!(self = LIST_MALLOC(sizeof(List))))
+list_t *
+list_new() {
+  list_t *self;
+  if (!(self = LIST_MALLOC(sizeof(list_t))))
     return NULL;
   self->head = NULL;
   self->tail = NULL;
@@ -29,10 +29,10 @@ List_new() {
  */
 
 void
-List_destroy(List *self) {
+list_destroy(list_t *self) {
   unsigned int len = self->len;
-  ListNode *next;
-  ListNode *curr = self->head;
+  list_node_t *next;
+  list_node_t *curr = self->head;
   while (len--) {
     next = curr->next;
     if (self->free) self->free(curr->val);
@@ -47,8 +47,8 @@ List_destroy(List *self) {
  * and return the node, NULL on failure.
  */
 
-ListNode *
-List_push(List *self, ListNode *node) {
+list_node_t *
+list_push(list_t *self, list_node_t *node) {
   if (!node) return NULL;
   if (self->len) {
     node->prev = self->tail;
@@ -67,10 +67,10 @@ List_push(List *self, ListNode *node) {
  * Return / detach the last node in the list, or NULL.
  */
 
-ListNode *
-List_pop(List *self) {
+list_node_t *
+list_pop(list_t *self) {
   if (!self->len) return NULL;
-  ListNode *node = self->tail;
+  list_node_t *node = self->tail;
   if (--self->len) {
     (self->tail = node->prev)->next = NULL;
   } else {
@@ -84,10 +84,10 @@ List_pop(List *self) {
  * Return / detach the first node in the list, or NULL.
  */
 
-ListNode *
-List_shift(List *self) {
+list_node_t *
+list_shift(list_t *self) {
   if (!self->len) return NULL;
-  ListNode *node = self->head;
+  list_node_t *node = self->head;
   if (--self->len) {
     (self->head = node->next)->prev = NULL;
   } else {
@@ -102,8 +102,8 @@ List_shift(List *self) {
  * and return the node, NULL on failure.
  */
 
-ListNode *
-List_unshift(List *self, ListNode *node) {
+list_node_t *
+list_unshift(list_t *self, list_node_t *node) {
   if (!node) return NULL;
   if (self->len) {
     node->next = self->head;
@@ -122,24 +122,24 @@ List_unshift(List *self, ListNode *node) {
  * Return the node associated to val or NULL.
  */
 
-ListNode *
-List_find(List *self, void *val) {
-  ListIterator *it = ListIterator_new(self, LIST_HEAD);
-  ListNode *node;
-  while ((node = ListIterator_next(it))) {
+list_node_t *
+list_find(list_t *self, void *val) {
+  list_iterator_t *it = list_iterator_new(self, LIST_HEAD);
+  list_node_t *node;
+  while ((node = list_iterator_next(it))) {
     if (self->match) {
       if (self->match(val, node->val)) {
-        ListIterator_destroy(it);
+        list_iterator_destroy(it);
         return node;
       }
     } else {
       if (val == node->val) {
-        ListIterator_destroy(it);
+        list_iterator_destroy(it);
         return node;
       }
     }
   }
-  ListIterator_destroy(it);
+  list_iterator_destroy(it);
   return NULL;
 }
 
@@ -147,9 +147,9 @@ List_find(List *self, void *val) {
  * Return the node at the given index or NULL.
  */
 
-ListNode *
-List_at(List *self, int index) {
-  ListDirection direction = LIST_HEAD;
+list_node_t *
+list_at(list_t *self, int index) {
+  list_direction_t direction = LIST_HEAD;
 
   if (index < 0) {
     direction = LIST_TAIL;
@@ -157,12 +157,12 @@ List_at(List *self, int index) {
   }
 
   if (index < self->len) {
-    ListIterator *it = ListIterator_new(self, direction);
-    ListNode *node = ListIterator_next(it);
+    list_iterator_t *it = list_iterator_new(self, direction);
+    list_node_t *node = list_iterator_next(it);
     while (index--) {
-      node = ListIterator_next(it);
+      node = list_iterator_next(it);
     };
-    ListIterator_destroy(it);
+    list_iterator_destroy(it);
     return node;
   }
 
@@ -174,7 +174,7 @@ List_at(List *self, int index) {
  */
 
 void 
-List_remove(List *self, ListNode *node) {
+list_remove(list_t *self, list_node_t *node) {
   node->prev
     ? (node->prev->next = node->next)
     : (self->head = node->next);

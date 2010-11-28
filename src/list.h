@@ -29,67 +29,92 @@ extern "C" {
 #endif
 
 /*
- * List iterator direction.
+ * list_t iterator direction.
  */
 
 typedef enum {
     LIST_HEAD
   , LIST_TAIL
-} ListDirection;
+} list_direction_t;
 
 /*
- * List node struct.
+ * list_t node struct.
  */
 
-typedef struct ListNode {
-  struct ListNode *prev;
-  struct ListNode *next;
+typedef struct list_node {
+  struct list_node *prev;
+  struct list_node *next;
   void *val;
-} ListNode;
+} list_node_t;
 
 /*
- * List struct.
+ * list_t struct.
  */
 
 typedef struct {
-  ListNode *head;
-  ListNode *tail;
+  list_node_t *head;
+  list_node_t *tail;
   unsigned int len;
   void (*free)(void *val);
   int (*match)(void *a, void *b);
-} List;
+} list_t;
 
 /*
- * List iterator struct.
+ * list_t iterator struct.
  */
 
 typedef struct {
-  ListNode *next;
-  ListDirection direction;
-} ListIterator;
+  list_node_t *next;
+  list_direction_t direction;
+} list_iterator_t;
 
 // Node prototypes.
 
-ListNode *ListNode_new(void *val);
+list_node_t *
+list_node_new(void *val);
 
-// List prototypes.
+// list_t prototypes.
 
-List *List_new();
-ListNode *List_push(List *self, ListNode *node);
-ListNode *List_unshift(List *self, ListNode *node);
-ListNode *List_find(List *self, void *val);
-ListNode *List_at(List *self, int index);
-ListNode *List_pop(List *self);
-ListNode *List_shift(List *self);
-void List_remove(List *self, ListNode *node);
-void List_destroy(List *self);
+list_t *
+list_new();
 
-// List iterator prototypes.
+list_node_t *
+list_push(list_t *self, list_node_t *node);
 
-ListIterator *ListIterator_new(List *list, ListDirection direction);
-ListIterator *ListIterator_newFromNode(ListNode *node, ListDirection direction);
-ListNode *ListIterator_next(ListIterator *self);
-void ListIterator_destroy(ListIterator *self);
+list_node_t *
+list_unshift(list_t *self, list_node_t *node);
+
+list_node_t *
+list_find(list_t *self, void *val);
+
+list_node_t *
+list_at(list_t *self, int index);
+
+list_node_t *
+list_pop(list_t *self);
+
+list_node_t *
+list_shift(list_t *self);
+
+void
+list_remove(list_t *self, list_node_t *node);
+
+void
+list_destroy(list_t *self);
+
+// list_t iterator prototypes.
+
+list_iterator_t *
+list_iterator_new(list_t *list, list_direction_t direction);
+
+list_iterator_t *
+list_iterator_new_from_node(list_node_t *node, list_direction_t direction);
+
+list_node_t *
+list_iterator_next(list_iterator_t *self);
+
+void
+list_iterator_destroy(list_iterator_t *self);
 
 #ifdef __cplusplus
 }
