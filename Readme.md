@@ -1,5 +1,5 @@
 
-# List
+# list
 
  C doubly linked list implementation.
 
@@ -7,107 +7,107 @@
 
  Below is the public api currently provided by "list".
 
-## List *List_new();
+## list_t *list_new();
 
- Allocate and initialize a `List`.
+ Allocate and initialize a `list`.
  
-    List *myList = List_new();
+    list_t *mylist = list_new();
 
-## ListNode \*ListNode_new(void *val)
+## list_node_t \*list_node_new(void *val)
 
- Allocate and initialize a `ListNode` with the given _val_.
+ Allocate and initialize a `list_node_t` with the given _val_.
 
-    ListNode *node = ListNode_new("my value");
+    list_node_t *node = list_node_new("my value");
     node->val; // "my value"
 
-## ListNode \* List_push(List \*self, ListNode *node)
+## list_node_ \* list_push(list_t_ \*self, list_node_t *node)
 
  Append _node_ to _self_, returning _node_.
  
-     List_push(list, ListNode_new("value"));
+     list_push(list, list_node_new("value"));
      list->tail->val; // "value"
 
-## ListNode \* List_pop(List \*self)
+## list_node_t \* list_pop(list \*self)
 
   Return / detach node from the end of the list, or __NULL__.
 
-    ListNode *last = List_pop(names);
+    list_node_t *last = list_pop(names);
 
-##  ListNode \*List_unshift(List \*self, ListNode *node)
+##  list_node_t \*list_unshift(list \*self, list_node_t *node)
 
  Prepend _node_ to _self_, returning _node_.
 
-    List_unshift(list, ListNode_new("value"));
+    list_unshift(list, list_node_new("value"));
     list->head->val; // "value"
 
-## ListNode \*List_find(List \*self, void *val)
+## list_node_t \*list_find(list \*self, void *val)
 
- Return the `ListNode` containing _val_ or __NULL__.
+ Return the `list_node_t` containing _val_ or __NULL__.
 
-    ListNode *node = List_find(list, "some value");
+    list_node_t *node = list_find(list, "some value");
 
-## ListNode \*List_at(List *self, int index)
+## list_node_t \*list_at(list *self, int index)
 
- Return the `ListNode` at the given _index_, where _index_
+ Return the `list_node_t` at the given _index_, where _index_
  may also be a negative integer indicating an index from the
  list _tail_.
 
-    List_at(list, 0);  // first
-    List_at(list, 1);  // second
-    List_at(list, -1); // last
-    List_at(list, -3); // third last
+    list_at(list, 0);  // first
+    list_at(list, 1);  // second
+    list_at(list, -1); // last
+    list_at(list, -3); // third last
 
-## void List_remove(List \*self, ListNode *node)
+## void list_remove(list \*self, list_node_t *node)
 
   Remove _node_ from the list, freeing it and it's value.
 
-    List_remove(list, node);
+    list_remove(list, node);
 
-## void List_destroy(List *self)
+## void list_destroy(list *self)
 
   Free the list and all nodes.
 
-    List_destroy(list);
+    list_destroy(list);
 
-## ListIterator \*ListIterator_new(List *list, ListDirection direction)
+## list_iterator_t \*list_iterator_new(list *list, list_direction_t direction)
 
-  Allocate and initialize a `ListIterator` with the given _direction_,
+  Allocate and initialize a `list_iterator_t` with the given _direction_,
   where _direction_ may be __LIST_HEAD__ or __LIST_TAIL__.
 
-    ListNode *node;
-    ListIterator *it = ListIterator_new(list, LIST_HEAD);
-    while ((node = ListIterator_next(it))) {
+    list_node_t *node;
+    list_iterator_t *it = list_iterator_new(list, LIST_HEAD);
+    while ((node = list_iterator_next(it))) {
     	puts(node->val);
     }  
 
-## ListNode \*ListIterator_next(ListIterator *self)
+## list_node_t \*list_iterator_next(list_iterator_t *self)
 
-  Return the next `ListNode` or __NULL__.
+  Return the next `list_node_t` or __NULL__.
 
-## void ListIterator_destroy(ListIterator *self);
+## void list_iterator_destroy(list_iterator_t *self);
 
   Free the iterator only.
 
-    ListIterator_destroy(it);
+    list_iterator_destroy(it);
 
 ## Examples
 
-List iteration:
+list iteration:
 
-    List *langs = List_new();
+    list *langs = list_new();
     
-    ListNode *c = List_push(langs, ListNode_new("c"));
-    ListNode *js = List_push(langs, ListNode_new("js"));
-    ListNode *ruby = List_push(langs, ListNode_new("ruby"));
+    list_node_t *c = list_push(langs, list_node_new("c"));
+    list_node_t *js = list_push(langs, list_node_new("js"));
+    list_node_t *ruby = list_push(langs, list_node_new("ruby"));
     
-    ListNode *node;
-    ListIterator *it = ListIterator_new(langs, LIST_HEAD);
-    while ((node = ListIterator_next(it))) {
+    list_node_t *node;
+    list_iterator_t *it = list_iterator_new(langs, LIST_HEAD);
+    while ((node = list_iterator_next(it))) {
     	puts(node->val);
     }
     
-    ListIterator_destroy(it);
-    List_destroy(langs);
+    list_iterator_destroy(it);
+    list_destroy(langs);
 
 stdout:
 
