@@ -28,9 +28,9 @@ static void
 bm_push() {
   start();
   int n = nnodes;
-  List *list = List_new();
+  list_t *list = list_new();
   while (n--) {
-    List_push(list, ListNode_new("foo"));
+    list_push(list, list_node_new("foo"));
   }
   stop();
 }
@@ -39,9 +39,9 @@ static void
 bm_unshift() {
   start();
   int n = nnodes;
-  List *list = List_new();
+  list_t *list = list_new();
   while (n--) {
-    List_unshift(list, ListNode_new("foo"));
+    list_unshift(list, list_node_new("foo"));
   }
   stop();
 }
@@ -49,27 +49,27 @@ bm_unshift() {
 static void
 bm_find() {
   int n = nnodes;
-  List *list = List_new();
+  list_t *list = list_new();
   while (n--) {
-    List_unshift(list, ListNode_new("foo"));
+    list_unshift(list, list_node_new("foo"));
   }
-  List_push(list, ListNode_new("bar"));
+  list_push(list, list_node_new("bar"));
   start();
-  List_find(list, "bar");
+  list_find(list, "bar");
   stop();
 }
 
 static void
 bm_iterate() {
   int n = nnodes;
-  List *list = List_new();
+  list_t *list = list_new();
   while (n--) {
-    List_unshift(list, ListNode_new("foo"));
+    list_unshift(list, list_node_new("foo"));
   }
-  ListIterator *it = ListIterator_new(list, LIST_HEAD);
-  ListNode *node;
+  list_iterator_t *it = list_iterator_new(list, LIST_HEAD);
+  list_node_t *node;
   start();
-  while ((node = ListIterator_next(it)))
+  while ((node = list_iterator_next(it)))
     ;
   stop();
 }
@@ -77,13 +77,13 @@ bm_iterate() {
 static void
 bm_pop() {
   int n = nnodes;
-  List *list = List_new();
+  list_t *list = list_new();
   while (n--) {
-    List_unshift(list, ListNode_new("foo"));
+    list_unshift(list, list_node_new("foo"));
   }
-  ListNode *node;
+  list_node_t *node;
   start();
-  while ((node = List_pop(list)))
+  while ((node = list_pop(list)))
     ;
   stop();
 }
@@ -91,45 +91,45 @@ bm_pop() {
 static void
 bm_shift() {
   int n = nnodes;
-  List *list = List_new();
+  list_t *list = list_new();
   while (n--) {
-    List_unshift(list, ListNode_new("foo"));
+    list_unshift(list, list_node_new("foo"));
   }
-  ListNode *node;
+  list_node_t *node;
   start();
-  while ((node = List_shift(list)))
+  while ((node = list_shift(list)))
     ;
   stop();
 }
 
-static List *list;
+static list_t *list;
 
 static void
 bm_at() {
   start();
-  List_at(list, 100000);
+  list_at(list, 100000);
   stop();
 }
 
 static void
 bm_at2() {
   start();
-  List_at(list, 1000000);
+  list_at(list, 1000000);
   stop();
 }
 
 static void
 bm_at3() {
   start();
-  List_at(list, -100000);
+  list_at(list, -100000);
   stop();
 }
 
 int
 main(int argc, const char **argv){
   int n = nnodes;
-  list = List_new();
-  while (n--) List_unshift(list, ListNode_new("foo"));
+  list = list_new();
+  while (n--) list_unshift(list, list_node_new("foo"));
   puts("\n 10,000,000 nodes\n");
   bm("pushed", bm_push);
   bm("unshifted", bm_unshift);  
