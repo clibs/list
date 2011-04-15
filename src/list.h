@@ -79,7 +79,7 @@ list_t *
 list_new();
 
 list_node_t *
-list_push(list_t *self, list_node_t *node);
+list_rpush(list_t *self, list_node_t *node);
 
 list_node_t *
 list_lpush(list_t *self, list_node_t *node);

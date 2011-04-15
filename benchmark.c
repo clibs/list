@@ -25,12 +25,12 @@ stop() {
 }
 
 static void
-bm_push() {
+bm_rpush() {
   start();
   int n = nnodes;
   list_t *list = list_new();
   while (n--) {
-    list_push(list, list_node_new("foo"));
+    list_rpush(list, list_node_new("foo"));
   }
   stop();
 }
@@ -53,7 +53,7 @@ bm_find() {
   while (n--) {
     list_lpush(list, list_node_new("foo"));
   }
-  list_push(list, list_node_new("bar"));
+  list_rpush(list, list_node_new("bar"));
   start();
   list_find(list, "bar");
   stop();
@@ -131,7 +131,7 @@ main(int argc, const char **argv){
   list = list_new();
   while (n--) list_lpush(list, list_node_new("foo"));
   puts("\n 10,000,000 nodes\n");
-  bm("pushed", bm_push);
+  bm("rpushed", bm_rpush);
   bm("lpushed", bm_lpush);  
   bm("pop", bm_pop);  
   bm("shift", bm_shift);  

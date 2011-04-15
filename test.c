@@ -38,7 +38,7 @@ test_list_node_new() {
 }
 
 static void
-test_list_push() {
+test_list_rpush() {
   // Setup
   list_t *list = list_new();
   list_node_t *a = list_node_new("a");
@@ -46,9 +46,9 @@ test_list_push() {
   list_node_t *c = list_node_new("c");
 
   // a b c 
-  list_push(list, a);
-  list_push(list, b);
-  list_push(list, c);
+  list_rpush(list, a);
+  list_rpush(list, b);
+  list_rpush(list, c);
 
   // Assertions
   assert(list->head == a);
@@ -71,7 +71,7 @@ test_list_lpush() {
   list_node_t *c = list_node_new("c");
 
   // c b a 
-  list_push(list, a);
+  list_rpush(list, a);
   list_lpush(list, b);
   list_lpush(list, c);
 
@@ -96,9 +96,9 @@ test_list_at() {
   list_node_t *c = list_node_new("c");
 
   // a b c
-  list_push(list, a);
-  list_push(list, b);
-  list_push(list, c);
+  list_rpush(list, a);
+  list_rpush(list, b);
+  list_rpush(list, c);
 
   // Assertions
   assert(a == list_at(list, 0));
@@ -120,17 +120,17 @@ test_list_destroy() {
   
   // a b c
   list_t *b = list_new();
-  list_push(b, list_node_new("a"));
-  list_push(b, list_node_new("b"));
-  list_push(b, list_node_new("c"));
+  list_rpush(b, list_node_new("a"));
+  list_rpush(b, list_node_new("b"));
+  list_rpush(b, list_node_new("c"));
   list_destroy(b);
 
   // Assertions
   list_t *c = list_new();
   c->free = freeProxy;
-  list_push(c, list_node_new(list_node_new("a")));
-  list_push(c, list_node_new(list_node_new("b")));
-  list_push(c, list_node_new(list_node_new("c")));
+  list_rpush(c, list_node_new(list_node_new("a")));
+  list_rpush(c, list_node_new(list_node_new("b")));
+  list_rpush(c, list_node_new(list_node_new("c")));
   list_destroy(c);
   assert(freeProxyCalls == 3);
 }
@@ -139,16 +139,16 @@ static void
 test_list_find() {
   // Setup
   list_t *langs = list_new();
-  list_node_t *js = list_push(langs, list_node_new("js"));
-  list_node_t *ruby = list_push(langs, list_node_new("ruby"));
+  list_node_t *js = list_rpush(langs, list_node_new("js"));
+  list_node_t *ruby = list_rpush(langs, list_node_new("ruby"));
 
   list_t *users = list_new();
   users->match = User_equal;
   User userTJ = { "tj" };
   User userSimon = { "simon" };
   User userTaylor = { "taylor" };
-  list_node_t *tj = list_push(users, list_node_new(&userTJ));
-  list_node_t *simon = list_push(users, list_node_new(&userSimon));
+  list_node_t *tj = list_rpush(users, list_node_new(&userTJ));
+  list_node_t *simon = list_rpush(users, list_node_new(&userSimon));
 
   // Assertions
   list_node_t *a = list_find(langs, "js");
@@ -170,9 +170,9 @@ static void
 test_list_remove() {
   // Setup
   list_t *list = list_new();
-  list_node_t *a = list_push(list, list_node_new("a"));
-  list_node_t *b = list_push(list, list_node_new("b"));
-  list_node_t *c = list_push(list, list_node_new("c"));
+  list_node_t *a = list_rpush(list, list_node_new("a"));
+  list_node_t *b = list_rpush(list, list_node_new("b"));
+  list_node_t *c = list_rpush(list, list_node_new("c"));
 
   // Assertions
   assert(list->len == 3);
@@ -203,9 +203,9 @@ static void
 test_list_pop() {
   // Setup
   list_t *list = list_new();
-  list_node_t *a = list_push(list, list_node_new("a"));
-  list_node_t *b = list_push(list, list_node_new("b"));
-  list_node_t *c = list_push(list, list_node_new("c"));
+  list_node_t *a = list_rpush(list, list_node_new("a"));
+  list_node_t *b = list_rpush(list, list_node_new("b"));
+  list_node_t *c = list_rpush(list, list_node_new("c"));
 
   // Assertions
   assert(3 == list->len);
@@ -237,9 +237,9 @@ static void
 test_list_shift() {
   // Setup
   list_t *list = list_new();
-  list_node_t *a = list_push(list, list_node_new("a"));
-  list_node_t *b = list_push(list, list_node_new("b"));
-  list_node_t *c = list_push(list, list_node_new("c"));
+  list_node_t *a = list_rpush(list, list_node_new("a"));
+  list_node_t *b = list_rpush(list, list_node_new("b"));
+  list_node_t *c = list_rpush(list, list_node_new("c"));
 
   // Assertions
   assert(3 == list->len);
@@ -272,9 +272,9 @@ test_list_iterator_t() {
   list_node_t *simon = list_node_new("simon");
   
   // tj taylor simon
-  list_push(list, tj);
-  list_push(list, taylor);
-  list_push(list, simon);
+  list_rpush(list, tj);
+  list_rpush(list, taylor);
+  list_rpush(list, simon);
   
   // Assertions
   
@@ -310,7 +310,7 @@ main(int argc, const char **argv){
   printf("list_node_t: %db\n", sizeof(list_node_t));
   printf("list_iterator_t: %db\n\n", sizeof(list_iterator_t));
   test(list_node_new);
-  test(list_push);
+  test(list_rpush);
   test(list_lpush);
   test(list_find);
   test(list_at);

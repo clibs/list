@@ -48,7 +48,7 @@ list_destroy(list_t *self) {
  */
 
 list_node_t *
-list_push(list_t *self, list_node_t *node) {
+list_rpush(list_t *self, list_node_t *node) {
   if (!node) return NULL;
   if (self->len) {
     node->prev = self->tail;

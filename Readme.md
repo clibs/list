@@ -20,11 +20,11 @@
     list_node_t *node = list_node_new("my value");
     node->val; // "my value"
 
-## list_node_ \* list_push(list_t_ \*self, list_node_t *node)
+## list_node_ \* list_rpush(list_t_ \*self, list_node_t *node)
 
  Append _node_ to _self_, returning _node_.
  
-     list_push(list, list_node_new("value"));
+     list_rpush(list, list_node_new("value"));
      list->tail->val; // "value"
 
 ## list_node_t \* list_pop(list \*self)
@@ -96,9 +96,9 @@ list iteration:
 
     list *langs = list_new();
     
-    list_node_t *c = list_push(langs, list_node_new("c"));
-    list_node_t *js = list_push(langs, list_node_new("js"));
-    list_node_t *ruby = list_push(langs, list_node_new("ruby"));
+    list_node_t *c = list_rpush(langs, list_node_new("c"));
+    list_node_t *js = list_rpush(langs, list_node_new("js"));
+    list_node_t *ruby = list_rpush(langs, list_node_new("ruby"));
     
     list_node_t *node;
     list_iterator_t *it = list_iterator_new(langs, LIST_HEAD);
