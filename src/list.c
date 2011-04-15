@@ -103,7 +103,7 @@ list_shift(list_t *self) {
  */
 
 list_node_t *
-list_unshift(list_t *self, list_node_t *node) {
+list_lpush(list_t *self, list_node_t *node) {
   if (!node) return NULL;
   if (self->len) {
     node->next = self->head;

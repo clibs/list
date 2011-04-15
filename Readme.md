@@ -33,11 +33,11 @@
 
     list_node_t *last = list_pop(names);
 
-##  list_node_t \*list_unshift(list \*self, list_node_t *node)
+##  list_node_t \*list_lpush(list \*self, list_node_t *node)
 
  Prepend _node_ to _self_, returning _node_.
 
-    list_unshift(list, list_node_new("value"));
+    list_lpush(list, list_node_new("value"));
     list->head->val; // "value"
 
 ## list_node_t \*list_find(list \*self, void *val)
@@ -122,7 +122,7 @@ stdout:
     10,000,000 nodes
 
                 pushed: 0.5934s
-             unshifted: 0.6018s
+             lpushed: 0.6018s
       find (last node): 0.0546s
                iterate: 0.0717s
            at(100,000): 0.0006s

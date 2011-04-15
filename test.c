@@ -63,7 +63,7 @@ test_list_push() {
 }
 
 static void
-test_list_unshift() {
+test_list_lpush() {
   // Setup
   list_t *list = list_new();
   list_node_t *a = list_node_new("a");
@@ -72,8 +72,8 @@ test_list_unshift() {
 
   // c b a 
   list_push(list, a);
-  list_unshift(list, b);
-  list_unshift(list, c);
+  list_lpush(list, b);
+  list_lpush(list, c);
 
   // Assertions
   assert(list->head == c);
@@ -311,7 +311,7 @@ main(int argc, const char **argv){
   printf("list_iterator_t: %db\n\n", sizeof(list_iterator_t));
   test(list_node_new);
   test(list_push);
-  test(list_unshift);
+  test(list_lpush);
   test(list_find);
   test(list_at);
   test(list_remove);

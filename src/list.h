@@ -82,7 +82,7 @@ list_node_t *
 list_push(list_t *self, list_node_t *node);
 
 list_node_t *
-list_unshift(list_t *self, list_node_t *node);
+list_lpush(list_t *self, list_node_t *node);
 
 list_node_t *
 list_find(list_t *self, void *val);
