@@ -89,7 +89,7 @@ bm_pop() {
 }
 
 static void
-bm_shift() {
+bm_lpop() {
   int n = nnodes;
   list_t *list = list_new();
   while (n--) {
@@ -97,7 +97,7 @@ bm_shift() {
   }
   list_node_t *node;
   start();
-  while ((node = list_shift(list)))
+  while ((node = list_lpop(list)))
     ;
   stop();
 }
@@ -134,7 +134,7 @@ main(int argc, const char **argv){
   bm("rpushed", bm_rpush);
   bm("lpushed", bm_lpush);  
   bm("pop", bm_pop);  
-  bm("shift", bm_shift);  
+  bm("lpop", bm_lpop);  
   bm("find (last node)", bm_find);  
   bm("iterate", bm_iterate);  
   bm("at(100,000)", bm_at);  

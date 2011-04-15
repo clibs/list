@@ -85,7 +85,7 @@ list_pop(list_t *self) {
  */
 
 list_node_t *
-list_shift(list_t *self) {
+list_lpop(list_t *self) {
   if (!self->len) return NULL;
   list_node_t *node = self->head;
   if (--self->len) {

@@ -234,7 +234,7 @@ test_list_pop() {
 }
 
 static void
-test_list_shift() {
+test_list_lpop() {
   // Setup
   list_t *list = list_new();
   list_node_t *a = list_rpush(list, list_node_new("a"));
@@ -244,22 +244,22 @@ test_list_shift() {
   // Assertions
   assert(3 == list->len);
 
-  assert(a == list_shift(list));
+  assert(a == list_lpop(list));
   assert(2 == list->len);
   assert(b == list->head);
   assert(NULL == list->head->prev && "new head node prev is not NULL");
   assert(NULL == a->prev && "detached node prev is not NULL");
   assert(NULL == a->next && "detached node next is not NULL");
   
-  assert(b == list_shift(list));
+  assert(b == list_lpop(list));
   assert(1 == list->len);
   
-  assert(c == list_shift(list));
+  assert(c == list_lpop(list));
   assert(0 == list->len);
   assert(NULL == list->head);
   assert(NULL == list->tail);
   
-  assert(NULL == list_shift(list));
+  assert(NULL == list_lpop(list));
   assert(0 == list->len);
 }
 
@@ -316,7 +316,7 @@ main(int argc, const char **argv){
   test(list_at);
   test(list_remove);
   test(list_pop);
-  test(list_shift);
+  test(list_lpop);
   test(list_destroy);
   test(list_iterator_t);
   puts("... \x1b[32m100%\x1b[0m\n");

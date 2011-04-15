@@ -94,7 +94,7 @@ list_node_t *
 list_pop(list_t *self);
 
 list_node_t *
-list_shift(list_t *self);
+list_lpop(list_t *self);
 
 void
 list_remove(list_t *self, list_node_t *node);
