@@ -75,7 +75,7 @@ bm_iterate() {
 }
 
 static void
-bm_pop() {
+bm_rpop() {
   int n = nnodes;
   list_t *list = list_new();
   while (n--) {
@@ -83,7 +83,7 @@ bm_pop() {
   }
   list_node_t *node;
   start();
-  while ((node = list_pop(list)))
+  while ((node = list_rpop(list)))
     ;
   stop();
 }
@@ -131,10 +131,10 @@ main(int argc, const char **argv){
   list = list_new();
   while (n--) list_lpush(list, list_node_new("foo"));
   puts("\n 10,000,000 nodes\n");
-  bm("rpushed", bm_rpush);
-  bm("lpushed", bm_lpush);  
-  bm("pop", bm_pop);  
+  bm("lpush", bm_lpush);  
+  bm("rpush", bm_rpush);
   bm("lpop", bm_lpop);  
+  bm("rpop", bm_rpop);  
   bm("find (last node)", bm_find);  
   bm("iterate", bm_iterate);  
   bm("at(100,000)", bm_at);  

@@ -200,7 +200,7 @@ test_list_remove() {
 }
 
 static void
-test_list_pop() {
+test_list_rpop() {
   // Setup
   list_t *list = list_new();
   list_node_t *a = list_rpush(list, list_node_new("a"));
@@ -210,7 +210,7 @@ test_list_pop() {
   // Assertions
   assert(3 == list->len);
   
-  assert(c == list_pop(list));
+  assert(c == list_rpop(list));
   assert(2 == list->len);
   assert(a == list->head);
   assert(b == list->tail);
@@ -219,17 +219,17 @@ test_list_pop() {
   assert(NULL == c->prev && "detached node prev is not NULL");
   assert(NULL == c->next && "detached node next is not NULL");
   
-  assert(b == list_pop(list));
+  assert(b == list_rpop(list));
   assert(1 == list->len);
   assert(a == list->head);
   assert(a == list->tail);
   
-  assert(a == list_pop(list));
+  assert(a == list_rpop(list));
   assert(0 == list->len);
   assert(NULL == list->head);
   assert(NULL == list->tail);
   
-  assert(NULL == list_pop(list));
+  assert(NULL == list_rpop(list));
   assert(0 == list->len);
 }
 
@@ -315,7 +315,7 @@ main(int argc, const char **argv){
   test(list_find);
   test(list_at);
   test(list_remove);
-  test(list_pop);
+  test(list_rpop);
   test(list_lpop);
   test(list_destroy);
   test(list_iterator_t);

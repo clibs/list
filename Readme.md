@@ -27,7 +27,7 @@
      list_rpush(list, list_node_new("value"));
      list->tail->val; // "value"
 
-## list_node_t \* list_pop(list \*self)
+## list_node_t \* list_rpop(list \*self)
 
   Return / detach node from the end of the list, or __NULL__.
 

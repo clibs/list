@@ -91,7 +91,7 @@ list_node_t *
 list_at(list_t *self, int index);
 
 list_node_t *
-list_pop(list_t *self);
+list_rpop(list_t *self);
 
 list_node_t *
 list_lpop(list_t *self);
