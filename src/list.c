@@ -181,7 +181,7 @@ list_remove(list_t *self, list_node_t *node) {
   node->next
     ? (node->next->prev = node->prev)
     : (self->tail = node->prev);
-  if (self->free) self->free(node);
+  if (self->free) self->free(node->val);
   LIST_FREE(node);
   --self->len;
 }
