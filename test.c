@@ -306,9 +306,9 @@ test_list_iterator_t() {
 
 int
 main(int argc, const char **argv){
-  printf("\nlist_t: %db\n", sizeof(list_t));
-  printf("list_node_t: %db\n", sizeof(list_node_t));
-  printf("list_iterator_t: %db\n\n", sizeof(list_iterator_t));
+  printf("\nlist_t: %ld\n", sizeof(list_t));
+  printf("list_node_t: %ld\n", sizeof(list_node_t));
+  printf("list_iterator_t: %ld\n\n", sizeof(list_iterator_t));
   test(list_node_new);
   test(list_rpush);
   test(list_lpush);
