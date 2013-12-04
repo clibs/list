@@ -5,5 +5,5 @@
   "description": "Simple linked list",
   "keywords": ["list", "structure"],
   "license": "MIT",
-  "src": ["src/iterator.c", "src/list.c", "src/node.c", "src/list.h"]
+  "src": ["src/list_iterator.c", "src/list.c", "src/list_node.c", "src/list.h"]
 }
