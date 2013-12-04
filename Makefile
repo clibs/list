@@ -6,8 +6,8 @@ PREFIX ?= /usr/local
 CFLAGS = -O3 -std=c99 -Wall
 
 SRCS = src/list.c \
-		   src/node.c \
-		   src/iterator.c
+		   src/list_node.c \
+		   src/list_iterator.c
 
 OBJS = $(SRCS:.c=.o)
 
