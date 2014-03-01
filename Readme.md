@@ -1,4 +1,3 @@
-
 # list
 
  C doubly linked list implementation.
@@ -94,7 +93,7 @@
 
 list iteration:
 
-    list *langs = list_new();
+    list_t *langs = list_new();
     
     list_node_t *c = list_rpush(langs, list_node_new("c"));
     list_node_t *js = list_rpush(langs, list_node_new("js"));
