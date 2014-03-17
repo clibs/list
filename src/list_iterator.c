@@ -1,4 +1,3 @@
-
 //
 // iterator.c
 //
@@ -58,4 +57,5 @@ list_iterator_next(list_iterator_t *self) {
 void
 list_iterator_destroy(list_iterator_t *self) {
   LIST_FREE(self);
+  self = NULL;
 }
