@@ -1,4 +1,10 @@
 
+0.0.6 / 2014-05-06
+==================
+
+ * list.h: Fix header guards
+ * Add “list” prefix to sources
+
 0.0.5 / 2013-10-20 
 ==================
 
