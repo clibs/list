@@ -140,16 +140,18 @@ stdout:
 ## Benchmarks
 
     $ make benchmark
-
-    10,000,000 nodes
-
-                pushed: 0.5934s
-             lpushed: 0.6018s
-      find (last node): 0.0546s
-               iterate: 0.0717s
-           at(100,000): 0.0006s
-         at(1,000,000): 0.0056s
-          at(-100,000): 0.0006s
+    
+     10,000,000 nodes
+    
+                  lpush: 0.5000s
+                  rpush: 0.5000s
+                   lpop: 0.0312s
+                   rpop: 0.0312s
+       find (last node): 0.0312s
+                iterate: 0.0625s
+            at(100,000): 0.0000s
+          at(1,000,000): 0.0000s
+           at(-100,000): 0.0000s
 
 
 
