@@ -22,7 +22,7 @@ list_node_t *node = list_node_new("my value");
 node->val; // "my value"
 ```
 
-## list_node_t \* list_rpush(list_t_ \*self, list_node_t *node)
+## list_node_t \* list_rpush(list_t \*self, list_node_t *node)
 
  Append _node_ to _self_, returning _node_.
  
@@ -31,7 +31,7 @@ list_rpush(list, list_node_new("value"));
 list->tail->val; // "value"
 ```
 
-## list_node_t \* list_rpop(list \*self)
+## list_node_t \* list_rpop(list_t \*self)
 
   Return / detach node from the end of the list, or __NULL__.
 
@@ -39,7 +39,7 @@ list->tail->val; // "value"
 list_node_t *last = list_pop(names);
 ```
 
-##  list_node_t \*list_lpush(list \*self, list_node_t *node)
+##  list_node_t \*list_lpush(list_t \*self, list_node_t *node)
 
  Prepend _node_ to _self_, returning _node_.
 
@@ -48,7 +48,7 @@ list_lpush(list, list_node_new("value"));
 list->head->val; // "value"
 ```
 
-## list_node_t \*list_find(list \*self, void *val)
+## list_node_t \*list_find(list_t \*self, void *val)
 
  Return the `list_node_t` containing _val_ or __NULL__.
 
@@ -56,7 +56,7 @@ list->head->val; // "value"
 list_node_t *node = list_find(list, "some value");
 ```
 
-## list_node_t \*list_at(list *self, int index)
+## list_node_t \*list_at(list_t *self, int index)
 
  Return the `list_node_t` at the given _index_, where _index_
  may also be a negative integer indicating an index from the
@@ -69,7 +69,7 @@ list_at(list, -1); // last
 list_at(list, -3); // third last
 ```
 
-## void list_remove(list \*self, list_node_t *node)
+## void list_remove(list_t \*self, list_node_t *node)
 
   Remove _node_ from the list, freeing it and it's value.
 
@@ -77,7 +77,7 @@ list_at(list, -3); // third last
 list_remove(list, node);
 ```
 
-## void list_destroy(list *self)
+## void list_destroy(list_t *self)
 
   Free the list and all nodes.
 
@@ -85,7 +85,7 @@ list_remove(list, node);
 list_destroy(list);
 ```
 
-## list_iterator_t \*list_iterator_new(list *list, list_direction_t direction)
+## list_iterator_t \*list_iterator_new(list_t *list, list_direction_t direction)
 
   Allocate and initialize a `list_iterator_t` with the given _direction_,
   where _direction_ may be __LIST_HEAD__ or __LIST_TAIL__.
