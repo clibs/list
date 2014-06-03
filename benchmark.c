@@ -127,7 +127,7 @@ bm_at3() {
 }
 
 int
-main(int argc, const char **argv){
+main(void){
   int n = nnodes;
   list = list_new();
   while (n--) list_lpush(list, list_node_new("foo"));
