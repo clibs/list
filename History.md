@@ -1,4 +1,17 @@
 
+0.0.7 / 2014-06-02
+==================
+
+ * ci: Remove benchmarks
+ * add travis
+ * test: Fix 'unused parameter' warning
+ * readme: Update benchmarks
+ * benchmark: Fix 'unused parameter' warning
+ * benchmark: Use clibs/bench for CPU time
+ * readme: Correct types
+ * readme: Add syntax highlighting
+ * iterator: set to `NULL` after freeing
+
 0.0.6 / 2014-05-06
 ==================
 
