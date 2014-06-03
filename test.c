@@ -25,7 +25,7 @@ typedef struct {
 
 static int
 User_equal(User *a, User *b) {
-  return 0 == strcmp(a->name, b->name); 
+  return 0 == strcmp(a->name, b->name);
 }
 
 // Tests
@@ -45,7 +45,7 @@ test_list_rpush() {
   list_node_t *b = list_node_new("b");
   list_node_t *c = list_node_new("c");
 
-  // a b c 
+  // a b c
   list_rpush(list, a);
   list_rpush(list, b);
   list_rpush(list, c);
@@ -70,7 +70,7 @@ test_list_lpush() {
   list_node_t *b = list_node_new("b");
   list_node_t *c = list_node_new("c");
 
-  // c b a 
+  // c b a
   list_rpush(list, a);
   list_lpush(list, b);
   list_lpush(list, c);
@@ -117,7 +117,7 @@ test_list_destroy() {
   // Setup
   list_t *a = list_new();
   list_destroy(a);
-  
+
   // a b c
   list_t *b = list_new();
   list_rpush(b, list_node_new("a"));
@@ -209,7 +209,7 @@ test_list_rpop() {
 
   // Assertions
   assert(3 == list->len);
-  
+
   assert(c == list_rpop(list));
   assert(2 == list->len);
   assert(a == list->head);
@@ -218,17 +218,17 @@ test_list_rpop() {
   assert(NULL == list->tail->next && "new tail node next is not NULL");
   assert(NULL == c->prev && "detached node prev is not NULL");
   assert(NULL == c->next && "detached node next is not NULL");
-  
+
   assert(b == list_rpop(list));
   assert(1 == list->len);
   assert(a == list->head);
   assert(a == list->tail);
-  
+
   assert(a == list_rpop(list));
   assert(0 == list->len);
   assert(NULL == list->head);
   assert(NULL == list->tail);
-  
+
   assert(NULL == list_rpop(list));
   assert(0 == list->len);
 }
@@ -250,15 +250,15 @@ test_list_lpop() {
   assert(NULL == list->head->prev && "new head node prev is not NULL");
   assert(NULL == a->prev && "detached node prev is not NULL");
   assert(NULL == a->next && "detached node next is not NULL");
-  
+
   assert(b == list_lpop(list));
   assert(1 == list->len);
-  
+
   assert(c == list_lpop(list));
   assert(0 == list->len);
   assert(NULL == list->head);
   assert(NULL == list->tail);
-  
+
   assert(NULL == list_lpop(list));
   assert(0 == list->len);
 }
@@ -270,21 +270,21 @@ test_list_iterator_t() {
   list_node_t *tj = list_node_new("tj");
   list_node_t *taylor = list_node_new("taylor");
   list_node_t *simon = list_node_new("simon");
-  
+
   // tj taylor simon
   list_rpush(list, tj);
   list_rpush(list, taylor);
   list_rpush(list, simon);
-  
+
   // Assertions
-  
+
   // From head
   list_iterator_t *it = list_iterator_new(list, LIST_HEAD);
   list_node_t *a = list_iterator_next(it);
   list_node_t *b = list_iterator_next(it);
   list_node_t *c = list_iterator_next(it);
   list_node_t *d = list_iterator_next(it);
-  
+
   assert(a == tj);
   assert(b == taylor);
   assert(c == simon);
@@ -296,7 +296,7 @@ test_list_iterator_t() {
   list_node_t *b2 = list_iterator_next(it);
   list_node_t *c2 = list_iterator_next(it);
   list_node_t *d2 = list_iterator_next(it);
-  
+
   assert(a2 == simon);
   assert(b2 == taylor);
   assert(c2 == tj);
@@ -305,7 +305,7 @@ test_list_iterator_t() {
 }
 
 int
-main(int argc, const char **argv){
+main(void){
   printf("\nlist_t: %ld\n", sizeof(list_t));
   printf("list_node_t: %ld\n", sizeof(list_node_t));
   printf("list_iterator_t: %ld\n\n", sizeof(list_iterator_t));
