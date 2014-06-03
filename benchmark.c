@@ -1,6 +1,6 @@
 
 #include <stdio.h>
-#include <time.h>
+#include "bench/bench.h"
 #include "src/list.h"
 
 static void
@@ -11,16 +11,17 @@ bm(char *label, void (*fn)()) {
 }
 
 static int nnodes = 10000000;
-static clock_t startTime;
+static float startTime;
+
 
 static void
 start() {
-  startTime = clock();
+  startTime = cpu();
 }
 
 static void
 stop() {
-  float duration = (float) (clock() - startTime) / CLOCKS_PER_SEC;
+  float duration = cpu() - startTime;
   printf(": \x1b[32m%.4f\x1b[0ms\n", duration);
 }
 
@@ -131,15 +132,15 @@ main(int argc, const char **argv){
   list = list_new();
   while (n--) list_lpush(list, list_node_new("foo"));
   puts("\n 10,000,000 nodes\n");
-  bm("lpush", bm_lpush);  
+  bm("lpush", bm_lpush);
   bm("rpush", bm_rpush);
-  bm("lpop", bm_lpop);  
-  bm("rpop", bm_rpop);  
-  bm("find (last node)", bm_find);  
-  bm("iterate", bm_iterate);  
-  bm("at(100,000)", bm_at);  
-  bm("at(1,000,000)", bm_at2);  
-  bm("at(-100,000)", bm_at3);  
+  bm("lpop", bm_lpop);
+  bm("rpop", bm_rpop);
+  bm("find (last node)", bm_find);
+  bm("iterate", bm_iterate);
+  bm("at(100,000)", bm_at);
+  bm("at(1,000,000)", bm_at2);
+  bm("at(-100,000)", bm_at3);
   puts("");
   return 0;
 }

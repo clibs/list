@@ -3,7 +3,7 @@ AR ?= ar
 CC ?= gcc
 PREFIX ?= /usr/local
 
-CFLAGS = -O3 -std=c99 -Wall
+CFLAGS = -O3 -std=c99 -Wall -Wextra -Ideps
 
 SRCS = src/list.c \
 		   src/list_node.c \
