@@ -22,7 +22,7 @@ list_node_t *node = list_node_new("my value");
 node->val; // "my value"
 ```
 
-## list_node_ \* list_rpush(list_t_ \*self, list_node_t *node)
+## list_node_t \* list_rpush(list_t_ \*self, list_node_t *node)
 
  Append _node_ to _self_, returning _node_.
  
