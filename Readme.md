@@ -17,34 +17,44 @@
 
  Allocate and initialize a `list_node_t` with the given _val_.
 
-    list_node_t *node = list_node_new("my value");
-    node->val; // "my value"
+```c
+list_node_t *node = list_node_new("my value");
+node->val; // "my value"
+```
 
 ## list_node_ \* list_rpush(list_t_ \*self, list_node_t *node)
 
  Append _node_ to _self_, returning _node_.
  
-     list_rpush(list, list_node_new("value"));
-     list->tail->val; // "value"
+```c
+list_rpush(list, list_node_new("value"));
+list->tail->val; // "value"
+```
 
 ## list_node_t \* list_rpop(list \*self)
 
   Return / detach node from the end of the list, or __NULL__.
 
-    list_node_t *last = list_pop(names);
+```c
+list_node_t *last = list_pop(names);
+```
 
 ##  list_node_t \*list_lpush(list \*self, list_node_t *node)
 
  Prepend _node_ to _self_, returning _node_.
 
-    list_lpush(list, list_node_new("value"));
-    list->head->val; // "value"
+```c
+list_lpush(list, list_node_new("value"));
+list->head->val; // "value"
+```
 
 ## list_node_t \*list_find(list \*self, void *val)
 
  Return the `list_node_t` containing _val_ or __NULL__.
 
-    list_node_t *node = list_find(list, "some value");
+```c
+list_node_t *node = list_find(list, "some value");
+```
 
 ## list_node_t \*list_at(list *self, int index)
 
@@ -52,33 +62,41 @@
  may also be a negative integer indicating an index from the
  list _tail_.
 
-    list_at(list, 0);  // first
-    list_at(list, 1);  // second
-    list_at(list, -1); // last
-    list_at(list, -3); // third last
+```c
+list_at(list, 0);  // first
+list_at(list, 1);  // second
+list_at(list, -1); // last
+list_at(list, -3); // third last
+```
 
 ## void list_remove(list \*self, list_node_t *node)
 
   Remove _node_ from the list, freeing it and it's value.
 
-    list_remove(list, node);
+```c
+list_remove(list, node);
+```
 
 ## void list_destroy(list *self)
 
   Free the list and all nodes.
 
-    list_destroy(list);
+```c
+list_destroy(list);
+```
 
 ## list_iterator_t \*list_iterator_new(list *list, list_direction_t direction)
 
   Allocate and initialize a `list_iterator_t` with the given _direction_,
   where _direction_ may be __LIST_HEAD__ or __LIST_TAIL__.
 
-    list_node_t *node;
-    list_iterator_t *it = list_iterator_new(list, LIST_HEAD);
-    while ((node = list_iterator_next(it))) {
-    	puts(node->val);
-    }  
+```c
+list_node_t *node;
+list_iterator_t *it = list_iterator_new(list, LIST_HEAD);
+while ((node = list_iterator_next(it))) {
+  puts(node->val);
+}
+```  
 
 ## list_node_t \*list_iterator_next(list_iterator_t *self)
 
@@ -88,26 +106,30 @@
 
   Free the iterator only.
 
-    list_iterator_destroy(it);
+```c
+list_iterator_destroy(it);
+```
 
 ## Examples
 
 list iteration:
 
-    list_t *langs = list_new();
-    
-    list_node_t *c = list_rpush(langs, list_node_new("c"));
-    list_node_t *js = list_rpush(langs, list_node_new("js"));
-    list_node_t *ruby = list_rpush(langs, list_node_new("ruby"));
-    
-    list_node_t *node;
-    list_iterator_t *it = list_iterator_new(langs, LIST_HEAD);
-    while ((node = list_iterator_next(it))) {
-    	puts(node->val);
-    }
-    
-    list_iterator_destroy(it);
-    list_destroy(langs);
+```c
+list_t *langs = list_new();
+
+list_node_t *c = list_rpush(langs, list_node_new("c"));
+list_node_t *js = list_rpush(langs, list_node_new("js"));
+list_node_t *ruby = list_rpush(langs, list_node_new("ruby"));
+
+list_node_t *node;
+list_iterator_t *it = list_iterator_new(langs, LIST_HEAD);
+while ((node = list_iterator_next(it))) {
+  puts(node->val);
+}
+
+list_iterator_destroy(it);
+list_destroy(langs);
+```
 
 stdout:
 
