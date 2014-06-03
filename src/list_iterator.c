@@ -1,3 +1,4 @@
+
 //
 // iterator.c
 //
@@ -21,7 +22,7 @@ list_iterator_new(list_t *list, list_direction_t direction) {
 
 /*
  * Allocate a new list_iterator_t with the given start
- * node. NULL on failure. 
+ * node. NULL on failure.
  */
 
 list_iterator_t *
