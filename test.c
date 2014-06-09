@@ -35,6 +35,7 @@ test_list_node_new() {
   char *val = "some value";
   list_node_t *node = list_node_new(val);
   assert(node->val == val);
+  free(node);
 }
 
 static void
@@ -51,15 +52,17 @@ test_list_rpush() {
   list_rpush(list, c);
 
   // Assertions
-  assert(list->head == a);
-  assert(list->tail == c);
-  assert(list->len == 3);
-  assert(a->next == b);
-  assert(a->prev == NULL);
-  assert(b->next == c);
-  assert(b->prev == a);
-  assert(c->next == NULL);
-  assert(c->prev == b);
+  assert(a == list->head);
+  assert(c == list->tail);
+  assert(3 == list->len);
+  assert(b == a->next);
+  assert(NULL == a->prev);
+  assert(c == b->next);
+  assert(a == b->prev);
+  assert(NULL == c->next);
+  assert(b == c->prev);
+
+  list_destroy(list);
 }
 
 static void
@@ -76,15 +79,17 @@ test_list_lpush() {
   list_lpush(list, c);
 
   // Assertions
-  assert(list->head == c);
-  assert(list->tail == a);
-  assert(list->len == 3);
-  assert(a->next == NULL);
-  assert(a->prev == b);
-  assert(b->next == a);
-  assert(b->prev == c);
-  assert(c->next == b);
-  assert(c->prev == NULL);
+  assert(c == list->head);
+  assert(a == list->tail);
+  assert(3 == list->len);
+  assert(NULL == a->next);
+  assert(b == a->prev);
+  assert(a == b->next);
+  assert(c == b->prev);
+  assert(b == c->next);
+  assert(NULL == c->prev);
+
+  list_destroy(list);
 }
 
 static void
@@ -110,6 +115,8 @@ test_list_at() {
   assert(b == list_at(list, -2));
   assert(a == list_at(list, -3));
   assert(NULL == list_at(list, -4));
+
+  list_destroy(list);
 }
 
 static void
@@ -132,7 +139,7 @@ test_list_destroy() {
   list_rpush(c, list_node_new(list_node_new("b")));
   list_rpush(c, list_node_new(list_node_new("c")));
   list_destroy(c);
-  assert(freeProxyCalls == 3);
+  assert(3 == freeProxyCalls);
 }
 
 static void
@@ -154,16 +161,20 @@ test_list_find() {
   list_node_t *a = list_find(langs, "js");
   list_node_t *b = list_find(langs, "ruby");
   list_node_t *c = list_find(langs, "foo");
-  assert(a == js);
-  assert(b == ruby);
-  assert(c == NULL);
+  assert(js == a);
+  assert(ruby == b);
+  assert(NULL == c);
+
+  list_destroy(langs);
 
   a = list_find(users, &userTJ);
   b = list_find(users, &userSimon);
   c = list_find(users, &userTaylor);
-  assert(a == tj);
-  assert(b == simon);
-  assert(c == NULL);
+  assert(tj == a);
+  assert(simon == b);
+  assert(NULL == c);
+
+  list_destroy(users);
 }
 
 static void
@@ -175,28 +186,30 @@ test_list_remove() {
   list_node_t *c = list_rpush(list, list_node_new("c"));
 
   // Assertions
-  assert(list->len == 3);
+  assert(3 == list->len);
 
   list_remove(list, b);
-  assert(list->len == 2);
-  assert(list->head == a);
-  assert(list->tail == c);
-  assert(a->next == c);
-  assert(a->prev == NULL);
-  assert(c->next == NULL);
-  assert(c->prev == a);
+  assert(2 == list->len);
+  assert(a == list->head);
+  assert(c == list->tail);
+  assert(c == a->next);
+  assert(NULL == a->prev);
+  assert(NULL == c->next);
+  assert(a == c->prev);
 
   list_remove(list, a);
-  assert(list->len == 1);
-  assert(list->head == c);
-  assert(list->tail == c);
-  assert(c->next == NULL);
-  assert(c->prev == NULL);
+  assert(1 == list->len);
+  assert(c == list->head);
+  assert(c == list->tail);
+  assert(NULL == c->next);
+  assert(NULL == c->prev);
 
   list_remove(list, c);
-  assert(list->len == 0);
-  assert(list->head == NULL);
-  assert(list->tail == NULL);
+  assert(0 == list->len);
+  assert(NULL == list->head);
+  assert(NULL == list->tail);
+
+  list_destroy(list);
 }
 
 static void
@@ -219,18 +232,26 @@ test_list_rpop() {
   assert(NULL == c->prev && "detached node prev is not NULL");
   assert(NULL == c->next && "detached node next is not NULL");
 
+  free(c);
+
   assert(b == list_rpop(list));
   assert(1 == list->len);
   assert(a == list->head);
   assert(a == list->tail);
+
+  free(b);
 
   assert(a == list_rpop(list));
   assert(0 == list->len);
   assert(NULL == list->head);
   assert(NULL == list->tail);
 
+  free(a);
+
   assert(NULL == list_rpop(list));
   assert(0 == list->len);
+
+  list_destroy(list);
 }
 
 static void
@@ -251,16 +272,24 @@ test_list_lpop() {
   assert(NULL == a->prev && "detached node prev is not NULL");
   assert(NULL == a->next && "detached node next is not NULL");
 
+  free(a);
+
   assert(b == list_lpop(list));
   assert(1 == list->len);
+
+  free(b);
 
   assert(c == list_lpop(list));
   assert(0 == list->len);
   assert(NULL == list->head);
   assert(NULL == list->tail);
 
+  free(c);
+
   assert(NULL == list_lpop(list));
   assert(0 == list->len);
+
+  list_destroy(list);
 }
 
 static void
@@ -288,7 +317,9 @@ test_list_iterator_t() {
   assert(a == tj);
   assert(b == taylor);
   assert(c == simon);
-  assert(d == NULL);
+  assert(NULL == d);
+
+  list_iterator_destroy(it);
 
   // From tail
   it = list_iterator_new(list, LIST_TAIL);
@@ -300,8 +331,10 @@ test_list_iterator_t() {
   assert(a2 == simon);
   assert(b2 == taylor);
   assert(c2 == tj);
-  assert(d2 == NULL);
+  assert(NULL == d2);
   list_iterator_destroy(it);
+
+  list_destroy(list);
 }
 
 int
