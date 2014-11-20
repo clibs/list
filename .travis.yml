@@ -1,5 +1,6 @@
 language: c
 before_install:
+  - sudo apt-get update
   - sudo apt-get install libcurl4-gnutls-dev -qq
   - git clone https://github.com/clibs/clib.git /tmp/clib
   - sudo make -C /tmp/clib install
