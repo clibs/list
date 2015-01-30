@@ -1,4 +1,12 @@
 
+0.0.8 / 2015-01-30
+==================
+
+  * fix `list_at` unsigned compare error (bolasblack, #13)
+  * travis: Fail the build if any memory is leaked
+  * travis: Update before installing deps
+  * test: Fix memory leaks
+
 0.0.7 / 2014-06-02
 ==================
 
