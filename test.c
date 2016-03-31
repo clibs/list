@@ -24,8 +24,8 @@ typedef struct {
 } User;
 
 static int
-User_equal(User *a, User *b) {
-  return 0 == strcmp(a->name, b->name);
+User_equal(void *a, void *b) {
+  return 0 == strcmp(((User *) a)->name, ((User *) b)->name);
 }
 
 // Tests
