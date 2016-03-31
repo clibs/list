@@ -137,6 +137,9 @@ list_lpush(tlist *self, tlist_node *node) {
 tlist_node *
 list_find(tlist *self, void *val) {
   tlist_iterator *it = list_iterator_new(self, LIST_HEAD);
+  if(! it)
+    return NULL;
+
   tlist_node *node;
 
   while ((node = list_iterator_next(it))) {
@@ -172,6 +175,9 @@ list_at(tlist *self, int index) {
 
   if ((unsigned)index < self->len) {
     tlist_iterator *it = list_iterator_new(self, direction);
+    if (! it)
+      return NULL;
+
     tlist_node *node = list_iterator_next(it);
     while (index--) node = list_iterator_next(it);
     list_iterator_destroy(it);
