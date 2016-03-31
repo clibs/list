@@ -13,7 +13,7 @@
 
 static int freeProxyCalls = 0;
 
-void
+static void
 freeProxy(void *val) {
   ++freeProxyCalls;
   free(val);
