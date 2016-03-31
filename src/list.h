@@ -29,92 +29,92 @@ extern "C" {
 #endif
 
 /*
- * list_t iterator direction.
+ * tlist iterator direction.
  */
 
 typedef enum {
     LIST_HEAD
   , LIST_TAIL
-} list_direction_t;
+} tlist_direction;
 
 /*
- * list_t node struct.
+ * tlist node struct.
  */
 
 typedef struct list_node {
   struct list_node *prev;
   struct list_node *next;
   void *val;
-} list_node_t;
+} tlist_node;
 
 /*
- * list_t struct.
+ * tlist struct.
  */
 
 typedef struct {
-  list_node_t *head;
-  list_node_t *tail;
+  tlist_node *head;
+  tlist_node *tail;
   unsigned int len;
   void (*free)(void *val);
   int (*match)(void *a, void *b);
-} list_t;
+} tlist;
 
 /*
- * list_t iterator struct.
+ * tlist iterator struct.
  */
 
 typedef struct {
-  list_node_t *next;
-  list_direction_t direction;
-} list_iterator_t;
+  tlist_node *next;
+  tlist_direction direction;
+} tlist_iterator;
 
 // Node prototypes.
 
-list_node_t *
+tlist_node *
 list_node_new(void *val);
 
 // list_t prototypes.
 
-list_t *
+tlist *
 list_new();
 
-list_node_t *
-list_rpush(list_t *self, list_node_t *node);
+tlist_node *
+list_rpush(tlist *self, tlist_node *node);
 
-list_node_t *
-list_lpush(list_t *self, list_node_t *node);
+tlist_node *
+list_lpush(tlist *self, tlist_node *node);
 
-list_node_t *
-list_find(list_t *self, void *val);
+tlist_node *
+list_find(tlist *self, void *val);
 
-list_node_t *
-list_at(list_t *self, int index);
+tlist_node *
+list_at(tlist *self, int index);
 
-list_node_t *
-list_rpop(list_t *self);
+tlist_node *
+list_rpop(tlist *self);
 
-list_node_t *
-list_lpop(list_t *self);
-
-void
-list_remove(list_t *self, list_node_t *node);
+tlist_node *
+list_lpop(tlist *self);
 
 void
-list_destroy(list_t *self);
-
-// list_t iterator prototypes.
-
-list_iterator_t *
-list_iterator_new(list_t *list, list_direction_t direction);
-
-list_iterator_t *
-list_iterator_new_from_node(list_node_t *node, list_direction_t direction);
-
-list_node_t *
-list_iterator_next(list_iterator_t *self);
+list_remove(tlist *self, tlist_node *node);
 
 void
-list_iterator_destroy(list_iterator_t *self);
+list_destroy(tlist *self);
+
+// tlist iterator prototypes.
+
+tlist_iterator *
+list_iterator_new(tlist *list, tlist_direction direction);
+
+tlist_iterator *
+list_iterator_new_from_node(tlist_node *node, tlist_direction direction);
+
+tlist_node *
+list_iterator_next(tlist_iterator *self);
+
+void
+list_iterator_destroy(tlist_iterator *self);
 
 #ifdef __cplusplus
 }
