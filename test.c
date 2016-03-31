@@ -339,9 +339,9 @@ test_list_iterator() {
 
 int
 main(void){
-  printf("\nlist_t: %ld\n", sizeof(list_t));
-  printf("list_node_t: %ld\n", sizeof(list_node_t));
-  printf("list_iterator_t: %ld\n\n", sizeof(list_iterator_t));
+  printf("\ntlist: %zu\n", sizeof(tlist));
+  printf("tlist_node: %zu\n", sizeof(tlist_node));
+  printf("tlist_iterator: %zu\n\n", sizeof(tlist_iterator));
   test(list_node_new);
   test(list_rpush);
   test(list_lpush);
