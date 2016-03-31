@@ -13,7 +13,7 @@
 
 static int freeProxyCalls = 0;
 
-void
+static void
 freeProxy(void *val) {
   ++freeProxyCalls;
   free(val);
@@ -24,8 +24,8 @@ typedef struct {
 } User;
 
 static int
-User_equal(User *a, User *b) {
-  return 0 == strcmp(a->name, b->name);
+User_equal(void *a, void *b) {
+  return 0 == strcmp(((User *) a)->name, ((User *) b)->name);
 }
 
 // Tests
@@ -33,7 +33,7 @@ User_equal(User *a, User *b) {
 static void
 test_list_node_new() {
   char *val = "some value";
-  list_node_t *node = list_node_new(val);
+  tlist_node *node = list_node_new(val);
   assert(node->val == val);
   free(node);
 }
@@ -41,10 +41,10 @@ test_list_node_new() {
 static void
 test_list_rpush() {
   // Setup
-  list_t *list = list_new();
-  list_node_t *a = list_node_new("a");
-  list_node_t *b = list_node_new("b");
-  list_node_t *c = list_node_new("c");
+  tlist *list = list_new();
+  tlist_node *a = list_node_new("a");
+  tlist_node *b = list_node_new("b");
+  tlist_node *c = list_node_new("c");
 
   // a b c
   list_rpush(list, a);
@@ -68,10 +68,10 @@ test_list_rpush() {
 static void
 test_list_lpush() {
   // Setup
-  list_t *list = list_new();
-  list_node_t *a = list_node_new("a");
-  list_node_t *b = list_node_new("b");
-  list_node_t *c = list_node_new("c");
+  tlist *list = list_new();
+  tlist_node *a = list_node_new("a");
+  tlist_node *b = list_node_new("b");
+  tlist_node *c = list_node_new("c");
 
   // c b a
   list_rpush(list, a);
@@ -95,10 +95,10 @@ test_list_lpush() {
 static void
 test_list_at() {
   // Setup
-  list_t *list = list_new();
-  list_node_t *a = list_node_new("a");
-  list_node_t *b = list_node_new("b");
-  list_node_t *c = list_node_new("c");
+  tlist *list = list_new();
+  tlist_node *a = list_node_new("a");
+  tlist_node *b = list_node_new("b");
+  tlist_node *c = list_node_new("c");
 
   // a b c
   list_rpush(list, a);
@@ -122,18 +122,18 @@ test_list_at() {
 static void
 test_list_destroy() {
   // Setup
-  list_t *a = list_new();
+  tlist *a = list_new();
   list_destroy(a);
 
   // a b c
-  list_t *b = list_new();
+  tlist *b = list_new();
   list_rpush(b, list_node_new("a"));
   list_rpush(b, list_node_new("b"));
   list_rpush(b, list_node_new("c"));
   list_destroy(b);
 
   // Assertions
-  list_t *c = list_new();
+  tlist *c = list_new();
   c->free = freeProxy;
   list_rpush(c, list_node_new(list_node_new("a")));
   list_rpush(c, list_node_new(list_node_new("b")));
@@ -145,22 +145,22 @@ test_list_destroy() {
 static void
 test_list_find() {
   // Setup
-  list_t *langs = list_new();
-  list_node_t *js = list_rpush(langs, list_node_new("js"));
-  list_node_t *ruby = list_rpush(langs, list_node_new("ruby"));
+  tlist *langs = list_new();
+  tlist_node *js = list_rpush(langs, list_node_new("js"));
+  tlist_node *ruby = list_rpush(langs, list_node_new("ruby"));
 
-  list_t *users = list_new();
+  tlist *users = list_new();
   users->match = User_equal;
   User userTJ = { "tj" };
   User userSimon = { "simon" };
   User userTaylor = { "taylor" };
-  list_node_t *tj = list_rpush(users, list_node_new(&userTJ));
-  list_node_t *simon = list_rpush(users, list_node_new(&userSimon));
+  tlist_node *tj = list_rpush(users, list_node_new(&userTJ));
+  tlist_node *simon = list_rpush(users, list_node_new(&userSimon));
 
   // Assertions
-  list_node_t *a = list_find(langs, "js");
-  list_node_t *b = list_find(langs, "ruby");
-  list_node_t *c = list_find(langs, "foo");
+  tlist_node *a = list_find(langs, "js");
+  tlist_node *b = list_find(langs, "ruby");
+  tlist_node *c = list_find(langs, "foo");
   assert(js == a);
   assert(ruby == b);
   assert(NULL == c);
@@ -180,10 +180,10 @@ test_list_find() {
 static void
 test_list_remove() {
   // Setup
-  list_t *list = list_new();
-  list_node_t *a = list_rpush(list, list_node_new("a"));
-  list_node_t *b = list_rpush(list, list_node_new("b"));
-  list_node_t *c = list_rpush(list, list_node_new("c"));
+  tlist *list = list_new();
+  tlist_node *a = list_rpush(list, list_node_new("a"));
+  tlist_node *b = list_rpush(list, list_node_new("b"));
+  tlist_node *c = list_rpush(list, list_node_new("c"));
 
   // Assertions
   assert(3 == list->len);
@@ -215,10 +215,10 @@ test_list_remove() {
 static void
 test_list_rpop() {
   // Setup
-  list_t *list = list_new();
-  list_node_t *a = list_rpush(list, list_node_new("a"));
-  list_node_t *b = list_rpush(list, list_node_new("b"));
-  list_node_t *c = list_rpush(list, list_node_new("c"));
+  tlist *list = list_new();
+  tlist_node *a = list_rpush(list, list_node_new("a"));
+  tlist_node *b = list_rpush(list, list_node_new("b"));
+  tlist_node *c = list_rpush(list, list_node_new("c"));
 
   // Assertions
   assert(3 == list->len);
@@ -257,10 +257,10 @@ test_list_rpop() {
 static void
 test_list_lpop() {
   // Setup
-  list_t *list = list_new();
-  list_node_t *a = list_rpush(list, list_node_new("a"));
-  list_node_t *b = list_rpush(list, list_node_new("b"));
-  list_node_t *c = list_rpush(list, list_node_new("c"));
+  tlist *list = list_new();
+  tlist_node *a = list_rpush(list, list_node_new("a"));
+  tlist_node *b = list_rpush(list, list_node_new("b"));
+  tlist_node *c = list_rpush(list, list_node_new("c"));
 
   // Assertions
   assert(3 == list->len);
@@ -293,12 +293,12 @@ test_list_lpop() {
 }
 
 static void
-test_list_iterator_t() {
+test_list_iterator() {
   // Setup
-  list_t *list = list_new();
-  list_node_t *tj = list_node_new("tj");
-  list_node_t *taylor = list_node_new("taylor");
-  list_node_t *simon = list_node_new("simon");
+  tlist *list = list_new();
+  tlist_node *tj = list_node_new("tj");
+  tlist_node *taylor = list_node_new("taylor");
+  tlist_node *simon = list_node_new("simon");
 
   // tj taylor simon
   list_rpush(list, tj);
@@ -308,11 +308,11 @@ test_list_iterator_t() {
   // Assertions
 
   // From head
-  list_iterator_t *it = list_iterator_new(list, LIST_HEAD);
-  list_node_t *a = list_iterator_next(it);
-  list_node_t *b = list_iterator_next(it);
-  list_node_t *c = list_iterator_next(it);
-  list_node_t *d = list_iterator_next(it);
+  tlist_iterator *it = list_iterator_new(list, LIST_HEAD);
+  tlist_node *a = list_iterator_next(it);
+  tlist_node *b = list_iterator_next(it);
+  tlist_node *c = list_iterator_next(it);
+  tlist_node *d = list_iterator_next(it);
 
   assert(a == tj);
   assert(b == taylor);
@@ -323,10 +323,10 @@ test_list_iterator_t() {
 
   // From tail
   it = list_iterator_new(list, LIST_TAIL);
-  list_node_t *a2 = list_iterator_next(it);
-  list_node_t *b2 = list_iterator_next(it);
-  list_node_t *c2 = list_iterator_next(it);
-  list_node_t *d2 = list_iterator_next(it);
+  tlist_node *a2 = list_iterator_next(it);
+  tlist_node *b2 = list_iterator_next(it);
+  tlist_node *c2 = list_iterator_next(it);
+  tlist_node *d2 = list_iterator_next(it);
 
   assert(a2 == simon);
   assert(b2 == taylor);
@@ -339,9 +339,9 @@ test_list_iterator_t() {
 
 int
 main(void){
-  printf("\nlist_t: %ld\n", sizeof(list_t));
-  printf("list_node_t: %ld\n", sizeof(list_node_t));
-  printf("list_iterator_t: %ld\n\n", sizeof(list_iterator_t));
+  printf("\ntlist: %zu\n", sizeof(tlist));
+  printf("tlist_node: %zu\n", sizeof(tlist_node));
+  printf("tlist_iterator: %zu\n\n", sizeof(tlist_iterator));
   test(list_node_new);
   test(list_rpush);
   test(list_lpush);
@@ -351,7 +351,7 @@ main(void){
   test(list_rpop);
   test(list_lpop);
   test(list_destroy);
-  test(list_iterator_t);
+  test(list_iterator);
   puts("... \x1b[32m100%\x1b[0m\n");
   return 0;
 }

@@ -8,27 +8,27 @@
 #include "list.h"
 
 /*
- * Allocate a new list_iterator_t. NULL on failure.
+ * Allocate a new tlist_iterator. NULL on failure.
  * Accepts a direction, which may be LIST_HEAD or LIST_TAIL.
  */
 
-list_iterator_t *
-list_iterator_new(list_t *list, list_direction_t direction) {
-  list_node_t *node = direction == LIST_HEAD
+tlist_iterator *
+list_iterator_new(tlist *list, tlist_direction direction) {
+  tlist_node *node = direction == LIST_HEAD
     ? list->head
     : list->tail;
   return list_iterator_new_from_node(node, direction);
 }
 
 /*
- * Allocate a new list_iterator_t with the given start
+ * Allocate a new tlist_iterator with the given start
  * node. NULL on failure.
  */
 
-list_iterator_t *
-list_iterator_new_from_node(list_node_t *node, list_direction_t direction) {
-  list_iterator_t *self;
-  if (!(self = LIST_MALLOC(sizeof(list_iterator_t))))
+tlist_iterator *
+list_iterator_new_from_node(tlist_node *node, tlist_direction direction) {
+  tlist_iterator *self;
+  if (!(self = LIST_MALLOC(sizeof *self)))
     return NULL;
   self->next = node;
   self->direction = direction;
@@ -36,13 +36,13 @@ list_iterator_new_from_node(list_node_t *node, list_direction_t direction) {
 }
 
 /*
- * Return the next list_node_t or NULL when no more
+ * Return the next tlist_node or NULL when no more
  * nodes remain in the list.
  */
 
-list_node_t *
-list_iterator_next(list_iterator_t *self) {
-  list_node_t *curr = self->next;
+tlist_node *
+list_iterator_next(tlist_iterator *self) {
+  tlist_node *curr = self->next;
   if (curr) {
     self->next = self->direction == LIST_HEAD
       ? curr->next
@@ -56,7 +56,6 @@ list_iterator_next(list_iterator_t *self) {
  */
 
 void
-list_iterator_destroy(list_iterator_t *self) {
+list_iterator_destroy(tlist_iterator *self) {
   LIST_FREE(self);
-  self = NULL;
 }

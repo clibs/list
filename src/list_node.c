@@ -8,13 +8,13 @@
 #include "list.h"
 
 /*
- * Allocates a new list_node_t. NULL on failure.
+ * Allocates a new tlist_node. NULL on failure.
  */
 
-list_node_t *
+tlist_node *
 list_node_new(void *val) {
-  list_node_t *self;
-  if (!(self = LIST_MALLOC(sizeof(list_node_t))))
+  tlist_node *self;
+  if (!(self = LIST_MALLOC(sizeof *self)))
     return NULL;
   self->prev = NULL;
   self->next = NULL;
