@@ -58,5 +58,4 @@ list_iterator_next(tlist_iterator *self) {
 void
 list_iterator_destroy(tlist_iterator *self) {
   LIST_FREE(self);
-  self = NULL;
 }
