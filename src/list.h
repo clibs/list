@@ -45,6 +45,7 @@ typedef struct list_node {
   struct list_node *prev;
   struct list_node *next;
   void *val;
+  void* (*func)(void *arg);
 } list_node_t;
 
 /*
