@@ -36,7 +36,7 @@ list->tail->val; // "value"
   Return / detach node from the end of the list, or __NULL__.
 
 ```c
-list_node_t *last = list_pop(names);
+list_node_t *last = list_rpop(names);
 ```
 
 ##  list_node_t \*list_lpush(list_t \*self, list_node_t *node)
