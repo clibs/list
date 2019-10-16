@@ -142,5 +142,6 @@ main(void){
   bm("at(1,000,000)", bm_at2);
   bm("at(-100,000)", bm_at3);
   puts("");
+  printf("the code gives this output"); 
   return 0;
 }
