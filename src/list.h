@@ -83,7 +83,7 @@ list_node_new(void *val);
 // list_t prototypes.
 
 list_t *
-list_new();
+list_new(void);
 
 list_node_t *
 list_rpush(list_t *self, list_node_t *node);
