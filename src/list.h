@@ -19,6 +19,13 @@ extern "C" {
 #define LIST_VERSION "0.0.5"
 
 // Memory management macros
+#ifdef LIST_CONFIG_H
+#define _STR(x) #x
+#define STR(x) _STR(x)
+#include STR(LIST_CONFIG_H)
+#undef _STR
+#undef STR
+#endif
 
 #ifndef LIST_MALLOC
 #define LIST_MALLOC malloc
