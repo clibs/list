@@ -5,8 +5,8 @@
 // Copyright (c) 2010 TJ Holowaychuk <tj@vision-media.ca>
 //
 
-#ifndef LIST_H
-#define LIST_H
+#ifndef __CLIBS_LIST_H__
+#define __CLIBS_LIST_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -127,4 +127,4 @@ list_iterator_destroy(list_iterator_t *self);
 }
 #endif
 
-#endif /* LIST_H */
+#endif /* __CLIBS_LIST_H__ */
