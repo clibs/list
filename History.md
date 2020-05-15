@@ -1,4 +1,10 @@
 
+0.1.0 / 2020-05-15
+==================
+
+  * Update list.h to allow configuration header set up LIST macros (#27)
+  * fix typo in README (#19)
+
 0.0.8 / 2015-01-30
 ==================
 
