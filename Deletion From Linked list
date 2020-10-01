@@ -1,0 +1,115 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+	int data;
+	struct node  *next; 
+}*start,*ptr,*save,*rear;
+
+int main()
+{
+	start=NULL;
+	int i,j=0,num;
+	int ch=3,sh=3;
+	
+    while(sh==3)
+	{
+	printf("\n________________________________\n");	
+	printf("\n1 :- Create a Linked list\n");
+	printf("2 :- Delete the starting node\n");
+	printf("3 :- Exit\n");
+    printf("________________________________\n");
+	printf(" enter your input :- ");
+	scanf("%d",&i);	
+	
+	
+	if(i==1)
+	{
+	
+	while(ch==3)
+	{
+		ptr= (struct node *)malloc(sizeof(struct node));
+		printf("\nenter the value\n");
+		scanf("%d",&num);
+		ptr->data=num;
+		ptr->next=NULL;
+		
+		if(start==NULL)
+		{
+			start=ptr;
+		}
+		else
+		{
+			save=start;
+			start=ptr;
+			ptr->next=save;
+		}
+		printf("\nWant to add more node \n");
+		printf("3 for 'Yes' || 4 for 'No' \n");
+		scanf("%d",&ch);
+	}
+    
+    
+	printf("\nYour created linked list is :-\n");
+	
+	rear=start;
+	
+	while(rear!=NULL)
+	{
+		printf("%d | ",rear->data);
+		rear=rear->next;
+	}
+	
+    }
+    
+	ch=3;
+	
+	if(i==2)
+	{
+	
+	while(ch==3)
+	{
+	
+	if(start==NULL)
+	{
+		printf("\nUnderflow !!!\n");
+		j=1;
+		break;
+	}
+	else
+	{
+		ptr=start;
+		start=start->next;
+		printf("\nLast inserted node is deleted\n");
+	}
+	
+	printf("\nWant to delete more node \n");
+	printf("3 for 'Yes' || 4 for 'No' \n");
+	scanf("%d",&ch);
+	
+    }
+    
+    if(j==1)
+    {
+    	break;
+	}
+     
+    printf("\nYour Linked list after deletion :- ");
+    
+    while(start!=NULL)
+    {
+    	printf("%d | ",start->data);
+    	start=start->next;
+	}
+	
+    }
+    
+    if(i==3)
+    {
+    	printf("\nthanku for running the program");
+    	break;
+	}
+    
+    }
+}
