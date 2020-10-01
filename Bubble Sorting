@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	int b,a[b],temp;
+	cout<<"enter the size of array"<<endl;
+	cin>>b;
+	cout<<"enter the values in the array"<<endl;
+	for(int l=0;l<b;l++)
+	{
+		cin>>a[l];
+	}
+	for(int i=0;i<b;i++)
+	{
+		for(int j=0;j<b-i-1;j++)
+		{
+			if(a[j+1]<a[j])
+			{
+				temp=a[j];
+				a[j]=a[j+1];
+				a[j+1]=temp;
+			}
+		}
+	}
+	for(int k=0;k<b;k++)
+	{
+		cout<<a[k]<<endl;
+	}
+}
