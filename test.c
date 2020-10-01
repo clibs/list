@@ -1,5 +1,7 @@
 
 #include <assert.h>
+#include <cohio.h>
+#include<maths.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
