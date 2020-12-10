@@ -11,10 +11,15 @@ SRCS = src/list.c \
 
 OBJS = $(SRCS:.c=.o)
 
-all: build/liblist.a
+all: build/liblist.a build/liblist.so.1
 
 install: all
+	test -d $(PREFIX)/lib || mkdir -p $(PREFIX)/lib
 	cp -f build/liblist.a $(PREFIX)/lib/liblist.a
+	cp -f build/liblist.so.1 $(PREFIX)/lib/liblist.so.0.1.0
+	ln -s liblist.so.0.1.0 $(PREFIX)/lib/liblist.so.1
+	ln -s liblist.so.1 $(PREFIX)/lib/liblist.so
+	test -d $(PREFIX)/include || mkdir -p $(PREFIX)/include/
 	cp -f src/list.h $(PREFIX)/include/list.h
 
 uninstall:
@@ -24,6 +29,11 @@ uninstall:
 build/liblist.a: $(OBJS)
 	@mkdir -p build
 	$(AR) rcs $@ $^
+
+build/liblist.so.1: $(OBJS)
+	@mkdir -p build
+	ld -z now -shared -lc -soname `basename $@` src/*.o -o $@
+	strip --strip-unneeded --remove-section=.comment --remove-section=.note $@
 
 bin/test: test.o $(OBJS)
 	@mkdir -p bin
