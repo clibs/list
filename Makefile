@@ -15,14 +15,15 @@ MAJOR_VERSION = 0
 MINOR_VERSION = 1
 PATCH_VERSION = 0
 
-all: build/liblist.a build/liblist.so.$(MAJOR_VERSION)
+all: build/liblist.a build/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
 
 install: all
 	test -d $(PREFIX)/lib || mkdir -p $(PREFIX)/lib
 	cp -f build/liblist.a $(PREFIX)/lib/liblist.a
-	cp -f build/liblist.so.$(MAJOR_VERSION) $(PREFIX)/lib/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
-	ln -s liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(PREFIX)/lib/liblist.so.$(MAJOR_VERSION)
-	ln -s liblist.so.$(MAJOR_VERSION) $(PREFIX)/lib/liblist.so
+	cp -f build/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(PREFIX)/lib/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
+	ln -sf liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(PREFIX)/lib/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION)
+	ln -sf liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION) $(PREFIX)/lib/liblist.so.$(MAJOR_VERSION)
+	ln -sf liblist.so.$(MAJOR_VERSION) $(PREFIX)/lib/liblist.so
 	test -d $(PREFIX)/include || mkdir -p $(PREFIX)/include/
 	cp -f src/list.h $(PREFIX)/include/list.h
 
@@ -34,7 +35,7 @@ build/liblist.a: $(OBJS)
 	@mkdir -p build
 	$(AR) rcs $@ $^
 
-build/liblist.so.$(MAJOR_VERSION): $(OBJS)
+build/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION): $(OBJS)
 	@mkdir -p build
 	ld -z now -shared -lc -soname `basename $@` src/*.o -o $@
 	strip --strip-unneeded --remove-section=.comment --remove-section=.note $@
