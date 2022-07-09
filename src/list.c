@@ -34,7 +34,7 @@ list_destroy(list_t *self) {
   list_node_t *next;
   list_node_t *curr = self->head;
 
-  while (len > 0 && len--) {
+  while (len--) {
     next = curr->next;
     if (self->free) self->free(curr->val);
     LIST_FREE(curr);
