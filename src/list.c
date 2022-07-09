@@ -30,7 +30,7 @@ list_new(void) {
 
 void
 list_destroy(list_t *self) {
-  unsigned int len = self->len;
+  int len = self->len;
   list_node_t *next;
   list_node_t *curr = self->head;
 
