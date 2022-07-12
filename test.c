@@ -143,6 +143,12 @@ test_list_destroy() {
 }
 
 static void
+test_list_empty_list_destroy() {
+  list_t *list = list_new();
+  list_destroy(list);
+}
+
+static void
 test_list_find() {
   // Setup
   list_t *langs = list_new();
@@ -351,6 +357,7 @@ main(void){
   test(list_rpop);
   test(list_lpop);
   test(list_destroy);
+  test(list_empty_list_destroy)
   test(list_iterator_t);
   puts("... \x1b[32m100%\x1b[0m\n");
   return 0;
