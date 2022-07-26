@@ -6,6 +6,7 @@ PREFIX ?= /usr/local
 DESTDIR ?=
 
 CFLAGS = -O3 -std=c99 -Wall -Wextra -Ideps
+LDFLAGS ?= -Wl,-z,now
 
 SRCS = src/list.c \
 		   src/list_node.c \
@@ -39,7 +40,7 @@ build/liblist.a: $(OBJS)
 
 build/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION): $(OBJS)
 	@mkdir -p build
-	ld -z now -shared -lc -soname `basename $@` src/*.o -o $@
+	$(CC) $(LDFLAGS) -shared -lc -Wl,-soname,`basename $@` src/*.o -o $@
 	$(STRIP) --strip-unneeded --remove-section=.comment --remove-section=.note $@
 
 bin/test: test.o $(OBJS)
