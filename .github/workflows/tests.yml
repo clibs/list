@@ -1,0 +1,11 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make bin/test
+      - run: valgrind --leak-check=full --error-exitcode=5 ./bin/test
