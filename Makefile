@@ -1,6 +1,7 @@
 
 AR ?= ar
 CC ?= gcc
+STRIP ?= strip
 PREFIX ?= /usr/local
 DESTDIR ?=
 
@@ -39,7 +40,7 @@ build/liblist.a: $(OBJS)
 build/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION): $(OBJS)
 	@mkdir -p build
 	ld -z now -shared -lc -soname `basename $@` src/*.o -o $@
-	strip --strip-unneeded --remove-section=.comment --remove-section=.note $@
+	$(STRIP) --strip-unneeded --remove-section=.comment --remove-section=.note $@
 
 bin/test: test.o $(OBJS)
 	@mkdir -p bin
