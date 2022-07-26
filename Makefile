@@ -34,6 +34,10 @@ install: all
 
 uninstall:
 	rm -f $(DESTDIR)$(LIBDIR)/liblist.a
+	rm -f $(DESTDIR)$(LIBDIR)/liblist.so
+	rm -f $(DESTDIR)$(LIBDIR)/liblist.so.$(MAJOR_VERSION)
+	rm -f $(DESTDIR)$(LIBDIR)/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION)
+	rm -f $(DESTDIR)$(LIBDIR)/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
 	rm -f $(DESTDIR)$(INCLUDEDIR)/list.h
 
 build/liblist.a: $(OBJS)
