@@ -4,6 +4,7 @@ CC ?= gcc
 STRIP ?= strip
 PREFIX ?= /usr/local
 LIBDIR ?= $(PREFIX)/lib
+INCLUDEDIR ?= $(PREFIX)/include
 DESTDIR ?=
 
 CFLAGS = -O3 -std=c99 -Wall -Wextra -Ideps
@@ -28,12 +29,12 @@ install: all
 	ln -sf liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(LIBDIR)/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION)
 	ln -sf liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION) $(DESTDIR)$(LIBDIR)/liblist.so.$(MAJOR_VERSION)
 	ln -sf liblist.so.$(MAJOR_VERSION) $(DESTDIR)$(LIBDIR)/liblist.so
-	test -d $(DESTDIR)$(PREFIX)/include || mkdir -p $(DESTDIR)$(PREFIX)/include/
-	cp -f src/list.h $(DESTDIR)$(PREFIX)/include/list.h
+	test -d $(DESTDIR)$(INCLUDEDIR) || mkdir -p $(DESTDIR)$(INCLUDEDIR)/
+	cp -f src/list.h $(DESTDIR)$(INCLUDEDIR)/list.h
 
 uninstall:
 	rm -f $(DESTDIR)$(LIBDIR)/liblist.a
-	rm -f $(DESTDIR)$(PREFIX)/include/list.h
+	rm -f $(DESTDIR)$(INCLUDEDIR)/list.h
 
 build/liblist.a: $(OBJS)
 	@mkdir -p build
