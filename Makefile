@@ -3,6 +3,7 @@ AR ?= ar
 CC ?= gcc
 STRIP ?= strip
 PREFIX ?= /usr/local
+LIBDIR ?= $(PREFIX)/lib
 DESTDIR ?=
 
 CFLAGS = -O3 -std=c99 -Wall -Wextra -Ideps
@@ -21,17 +22,17 @@ PATCH_VERSION = 0
 all: build/liblist.a build/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
 
 install: all
-	test -d $(DESTDIR)$(PREFIX)/lib || mkdir -p $(DESTDIR)$(PREFIX)/lib
-	cp -f build/liblist.a $(DESTDIR)$(PREFIX)/lib/liblist.a
-	cp -f build/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(PREFIX)/lib/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
-	ln -sf liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(PREFIX)/lib/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION)
-	ln -sf liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION) $(DESTDIR)$(PREFIX)/lib/liblist.so.$(MAJOR_VERSION)
-	ln -sf liblist.so.$(MAJOR_VERSION) $(DESTDIR)$(PREFIX)/lib/liblist.so
+	test -d $(DESTDIR)$(LIBDIR) || mkdir -p $(DESTDIR)$(LIBDIR)
+	cp -f build/liblist.a $(DESTDIR)$(LIBDIR)/liblist.a
+	cp -f build/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(LIBDIR)/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
+	ln -sf liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(LIBDIR)/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION)
+	ln -sf liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION) $(DESTDIR)$(LIBDIR)/liblist.so.$(MAJOR_VERSION)
+	ln -sf liblist.so.$(MAJOR_VERSION) $(DESTDIR)$(LIBDIR)/liblist.so
 	test -d $(DESTDIR)$(PREFIX)/include || mkdir -p $(DESTDIR)$(PREFIX)/include/
 	cp -f src/list.h $(DESTDIR)$(PREFIX)/include/list.h
 
 uninstall:
-	rm -f $(DESTDIR)$(PREFIX)/lib/liblist.a
+	rm -f $(DESTDIR)$(LIBDIR)/liblist.a
 	rm -f $(DESTDIR)$(PREFIX)/include/list.h
 
 build/liblist.a: $(OBJS)
