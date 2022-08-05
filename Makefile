@@ -21,11 +21,11 @@ MAJOR_VERSION = 0
 MINOR_VERSION = 2
 PATCH_VERSION = 0
 
-all: build/liblist.a build/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
+all: build/libclibs_list.a build/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
 
 install: all
 	test -d $(DESTDIR)$(LIBDIR) || mkdir -p $(DESTDIR)$(LIBDIR)
-	cp -f build/liblist.a $(DESTDIR)$(LIBDIR)/liblist.a
+	cp -f build/libclibs_list.a $(DESTDIR)$(LIBDIR)/libclibs_list.a
 	cp -f build/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
 	ln -sf libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION)
 	ln -sf libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION) $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION)
@@ -34,14 +34,14 @@ install: all
 	cp -f src/list.h $(DESTDIR)$(INCLUDEDIR)$(INCLUDESUBDIR)/list.h
 
 uninstall:
-	rm -f $(DESTDIR)$(LIBDIR)/liblist.a
+	rm -f $(DESTDIR)$(LIBDIR)/libclibs_list.a
 	rm -f $(DESTDIR)$(LIBDIR)/libclibs_list.so
 	rm -f $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION)
 	rm -f $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION)
 	rm -f $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
 	rm -f $(DESTDIR)$(INCLUDEDIR)$(INCLUDESUBDIR)/list.h
 
-build/liblist.a: $(OBJS)
+build/libclibs_list.a: $(OBJS)
 	@mkdir -p build
 	$(AR) rcs $@ $^
 
