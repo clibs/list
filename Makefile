@@ -5,6 +5,7 @@ STRIP ?= strip
 PREFIX ?= /usr/local
 LIBDIR ?= $(PREFIX)/lib
 INCLUDEDIR ?= $(PREFIX)/include
+INCLUDESUBDIR ?= /clibs
 DESTDIR ?=
 
 CFLAGS = -O3 -std=c99 -Wall -Wextra -Ideps
@@ -29,8 +30,8 @@ install: all
 	ln -sf liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(LIBDIR)/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION)
 	ln -sf liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION) $(DESTDIR)$(LIBDIR)/liblist.so.$(MAJOR_VERSION)
 	ln -sf liblist.so.$(MAJOR_VERSION) $(DESTDIR)$(LIBDIR)/liblist.so
-	test -d $(DESTDIR)$(INCLUDEDIR) || mkdir -p $(DESTDIR)$(INCLUDEDIR)/
-	cp -f src/list.h $(DESTDIR)$(INCLUDEDIR)/list.h
+	test -d $(DESTDIR)$(INCLUDEDIR)$(INCLUDESUBDIR) || mkdir -p $(DESTDIR)$(INCLUDEDIR)$(INCLUDESUBDIR)/
+	cp -f src/list.h $(DESTDIR)$(INCLUDEDIR)$(INCLUDESUBDIR)/list.h
 
 uninstall:
 	rm -f $(DESTDIR)$(LIBDIR)/liblist.a
@@ -38,7 +39,7 @@ uninstall:
 	rm -f $(DESTDIR)$(LIBDIR)/liblist.so.$(MAJOR_VERSION)
 	rm -f $(DESTDIR)$(LIBDIR)/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION)
 	rm -f $(DESTDIR)$(LIBDIR)/liblist.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
-	rm -f $(DESTDIR)$(INCLUDEDIR)/list.h
+	rm -f $(DESTDIR)$(INCLUDEDIR)$(INCLUDESUBDIR)/list.h
 
 build/liblist.a: $(OBJS)
 	@mkdir -p build
