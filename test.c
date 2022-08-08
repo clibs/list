@@ -9,8 +9,9 @@
 
 #define test(fn) \
   puts("... \x1b[33m" # fn "\x1b[0m"); \
-  test_##fn();
+  test_##fn(); //Call the test function
 
+// For counting destroyed time
 static int freeProxyCalls = 0;
 
 void
@@ -131,6 +132,30 @@ test_list_destroy() {
   list_rpush(b, list_node_new("b"));
   list_rpush(b, list_node_new("c"));
   list_destroy(b);
+  
+  // Assertions
+  list_t *c = list_new();
+  c->free = freeProxy;
+  list_rpush(c, list_node_new(list_node_new("a")));
+  list_rpush(c, list_node_new(list_node_new("b")));
+  list_rpush(c, list_node_new(list_node_new("c")));
+  list_destroy(c);
+  assert(3 == freeProxyCalls);
+  freeProxyCalls=0;
+}
+
+static void
+test_list_destroy_complexver() {
+  // Setup
+  list_t *a = list_new();
+  list_destroy(a);
+
+  // a b c
+  list_t *b = list_new();
+  list_rpush(b, list_node_new("a"));
+  list_rpush(b, list_node_new("b"));
+  list_rpush(b, list_node_new("c"));
+  list_destroy(b);
 
   // Assertions
   list_t *c = list_new();
@@ -140,14 +165,22 @@ test_list_destroy() {
   list_rpush(c, list_node_new(list_node_new("c")));
   list_destroy(c);
   assert(3 == freeProxyCalls);
+  freeProxyCalls=0;
+  list_t *d = list_new();
+  d->free = freeProxy;
+  list_rpush(d, list_node_new(list_node_new("a")));
+  list_rpush(d, list_node_new(list_node_new("b")));
+  list_rpush(d, list_node_new(list_node_new("c")));
+  list_destroy(d);
+  assert(3 == freeProxyCalls);
+  freeProxyCalls=0;
 }
-
 static void
 test_list_empty_list_destroy() {
   list_t *list = list_new();
   list_destroy(list);
+  freeProxyCalls=0;
 }
-
 static void
 test_list_find() {
   // Setup
@@ -358,6 +391,7 @@ main(void){
   test(list_lpop);
   test(list_destroy);
   test(list_empty_list_destroy)
+  test(list_destroy_complexver)
   test(list_iterator_t);
   puts("... \x1b[32m100%\x1b[0m\n");
   return 0;
