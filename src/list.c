@@ -30,19 +30,19 @@ list_new(void) {
  */
 
 void
-list_destroy(list_t *self) {
-  unsigned int len = self->len;
+list_destroy(list_t **self) {
+  unsigned int len = (*self)->len;
   list_node_t *next;
-  list_node_t *curr = self->head;
+  list_node_t *curr = (*self)->head;
 
   while (len--) {
     next = curr->next;
-    if (self->free) self->free(curr->val);
+    if ((*self)->free) (*self)->free(curr->val);
     LIST_FREE(curr);
     curr = next;
   }
 
-  LIST_FREE(self);
+  LIST_FREE(*self);
 }
 
 /*
@@ -151,18 +151,18 @@ list_find(list_t *self, void *val) {
   while ((node = list_iterator_next(it))) {
     if (self->match) {
       if (self->match(val, node->val)) {
-        list_iterator_destroy(it);
+        list_iterator_destroy(&it);
         return node;
       }
     } else {
       if (val == node->val) {
-        list_iterator_destroy(it);
+        list_iterator_destroy(&it);
         return node;
       }
     }
   }
 
-  list_iterator_destroy(it);
+  list_iterator_destroy(&it);
   return NULL;
 }
 
@@ -185,7 +185,7 @@ list_at(list_t *self, int index) {
     list_iterator_t *it = list_iterator_new(self, direction);
     list_node_t *node = list_iterator_next(it);
     while (index--) node = list_iterator_next(it);
-    list_iterator_destroy(it);
+    list_iterator_destroy(&it);
     return node;
   }
 

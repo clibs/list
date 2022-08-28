@@ -107,7 +107,7 @@ void
 list_remove(list_t *self, list_node_t *node);
 
 void
-list_destroy(list_t *self);
+list_destroy(list_t **self);
 
 // list_t iterator prototypes.
 
@@ -121,7 +121,7 @@ list_node_t *
 list_iterator_next(list_iterator_t *self);
 
 void
-list_iterator_destroy(list_iterator_t *self);
+list_iterator_destroy(list_iterator_t **self);
 
 #ifdef __cplusplus
 }
