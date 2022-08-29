@@ -26,7 +26,7 @@ list_new(void) {
 
 /*
  * Free the list.
- * @self: Pointer to the list 
+ * @self: Pointer to the list pointer.
  */
 
 void
@@ -43,6 +43,7 @@ list_destroy(list_t **self) {
   }
 
   LIST_FREE(*self);
+  *self = NULL;
 }
 
 /*

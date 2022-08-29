@@ -77,12 +77,12 @@ list_at(list, -3); // third last
 list_remove(list, node);
 ```
 
-## void list_destroy(list_t *self)
+## void list_destroy(list_t **self)
 
   Free the list and all nodes.
 
 ```c
-list_destroy(list);
+list_destroy(&list);
 ```
 
 ## list_iterator_t \*list_iterator_new(list_t *list, list_direction_t direction)
@@ -102,12 +102,12 @@ while ((node = list_iterator_next(it))) {
 
   Return the next `list_node_t` or __NULL__.
 
-## void list_iterator_destroy(list_iterator_t *self);
+## void list_iterator_destroy(list_iterator_t **self);
 
   Free the iterator only.
 
 ```c
-list_iterator_destroy(it);
+list_iterator_destroy(&it);
 ```
 
 ## Examples
@@ -127,8 +127,8 @@ while ((node = list_iterator_next(it))) {
   puts(node->val);
 }
 
-list_iterator_destroy(it);
-list_destroy(langs);
+list_iterator_destroy(&it);
+list_destroy(&langs);
 ```
 
 stdout:
