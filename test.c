@@ -63,7 +63,7 @@ test_list_rpush() {
   assert(NULL == c->next);
   assert(b == c->prev);
 
-  list_destroy(list);
+  list_destroy(&list);
 }
 
 static void
@@ -90,7 +90,7 @@ test_list_lpush() {
   assert(b == c->next);
   assert(NULL == c->prev);
 
-  list_destroy(list);
+  list_destroy(&list);
 }
 
 static void
@@ -117,21 +117,21 @@ test_list_at() {
   assert(a == list_at(list, -3));
   assert(NULL == list_at(list, -4));
 
-  list_destroy(list);
+  list_destroy(&list);
 }
 
 static void
 test_list_destroy() {
   // Setup
   list_t *a = list_new();
-  list_destroy(a);
+  list_destroy(&a);
 
   // a b c
   list_t *b = list_new();
   list_rpush(b, list_node_new("a"));
   list_rpush(b, list_node_new("b"));
   list_rpush(b, list_node_new("c"));
-  list_destroy(b);
+  list_destroy(&b);
   
   // Assertions
   list_t *c = list_new();
@@ -139,7 +139,7 @@ test_list_destroy() {
   list_rpush(c, list_node_new(list_node_new("a")));
   list_rpush(c, list_node_new(list_node_new("b")));
   list_rpush(c, list_node_new(list_node_new("c")));
-  list_destroy(c);
+  list_destroy(&c);
   assert(3 == freeProxyCalls);
   freeProxyCalls=0;
 }
@@ -148,14 +148,14 @@ static void
 test_list_destroy_complexver() {
   // Setup
   list_t *a = list_new();
-  list_destroy(a);
+  list_destroy(&a);
 
   // a b c
   list_t *b = list_new();
   list_rpush(b, list_node_new("a"));
   list_rpush(b, list_node_new("b"));
   list_rpush(b, list_node_new("c"));
-  list_destroy(b);
+  list_destroy(&b);
 
   // Assertions
   list_t *c = list_new();
@@ -163,7 +163,7 @@ test_list_destroy_complexver() {
   list_rpush(c, list_node_new(list_node_new("a")));
   list_rpush(c, list_node_new(list_node_new("b")));
   list_rpush(c, list_node_new(list_node_new("c")));
-  list_destroy(c);
+  list_destroy(&c);
   assert(3 == freeProxyCalls);
   freeProxyCalls=0;
   list_t *d = list_new();
@@ -171,14 +171,14 @@ test_list_destroy_complexver() {
   list_rpush(d, list_node_new(list_node_new("a")));
   list_rpush(d, list_node_new(list_node_new("b")));
   list_rpush(d, list_node_new(list_node_new("c")));
-  list_destroy(d);
+  list_destroy(&d);
   assert(3 == freeProxyCalls);
   freeProxyCalls=0;
 }
 static void
 test_list_empty_list_destroy() {
   list_t *list = list_new();
-  list_destroy(list);
+  list_destroy(&list);
   freeProxyCalls=0;
 }
 static void
@@ -204,7 +204,7 @@ test_list_find() {
   assert(ruby == b);
   assert(NULL == c);
 
-  list_destroy(langs);
+  list_destroy(&langs);
 
   a = list_find(users, &userTJ);
   b = list_find(users, &userSimon);
@@ -213,7 +213,7 @@ test_list_find() {
   assert(simon == b);
   assert(NULL == c);
 
-  list_destroy(users);
+  list_destroy(&users);
 }
 
 static void
@@ -248,7 +248,7 @@ test_list_remove() {
   assert(NULL == list->head);
   assert(NULL == list->tail);
 
-  list_destroy(list);
+  list_destroy(&list);
 }
 
 static void
@@ -290,7 +290,7 @@ test_list_rpop() {
   assert(NULL == list_rpop(list));
   assert(0 == list->len);
 
-  list_destroy(list);
+  list_destroy(&list);
 }
 
 static void
@@ -328,7 +328,7 @@ test_list_lpop() {
   assert(NULL == list_lpop(list));
   assert(0 == list->len);
 
-  list_destroy(list);
+  list_destroy(&list);
 }
 
 static void
@@ -358,7 +358,7 @@ test_list_iterator_t() {
   assert(c == simon);
   assert(NULL == d);
 
-  list_iterator_destroy(it);
+  list_iterator_destroy(&it);
 
   // From tail
   it = list_iterator_new(list, LIST_TAIL);
@@ -371,9 +371,9 @@ test_list_iterator_t() {
   assert(b2 == taylor);
   assert(c2 == tj);
   assert(NULL == d2);
-  list_iterator_destroy(it);
+  list_iterator_destroy(&it);
 
-  list_destroy(list);
+  list_destroy(&list);
 }
 
 int
