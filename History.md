@@ -1,4 +1,10 @@
 
+0.2.0 / 2020-05-15
+==================
+
+  * Building versioned shared libs (#32, #33)
+  * define major, minor, and patch version
+  
 0.1.0 / 2020-05-15
 ==================
 
