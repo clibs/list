@@ -61,7 +61,7 @@ typedef struct list_node {
 typedef struct {
   list_node_t *head;
   list_node_t *tail;
-  unsigned int len;
+  int len;
   void (*free)(void *val);
   int (*match)(void *a, void *b);
 } list_t;

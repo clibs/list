@@ -332,6 +332,12 @@ test_list_lpop() {
 }
 
 static void
+test_list_empty_list_destroy() {
+  list_t *list = list_new();
+  list_destroy(list); 
+}
+
+static void
 test_list_iterator_t() {
   // Setup
   list_t *list = list_new();
@@ -393,6 +399,7 @@ main(void){
   test(list_empty_list_destroy)
   test(list_destroy_complexver)
   test(list_iterator_t);
+  test(list_empty_list_destroy);
   puts("... \x1b[32m100%\x1b[0m\n");
   return 0;
 }
