@@ -47,7 +47,7 @@ build/libclibs_list.a: $(OBJS)
 
 build/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION): $(OBJS)
 	@mkdir -p build
-	$(CC) $(LDFLAGS) -shared -lc -Wl,-soname,`basename $@` src/*.o -o $@
+	$(CC) $(LDFLAGS) -shared -lc -Wl,-soname,`basename $@ | sed s/\.${MINOR_VERSION}.${PATCH_VERSION}//` src/*.o -o $@
 	$(STRIP) --strip-unneeded --remove-section=.comment --remove-section=.note $@
 
 bin/test: test.o $(OBJS)
