@@ -27,8 +27,7 @@ install: all
 	test -d $(DESTDIR)$(LIBDIR) || mkdir -p $(DESTDIR)$(LIBDIR)
 	cp -f build/libclibs_list.a $(DESTDIR)$(LIBDIR)/libclibs_list.a
 	cp -f build/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
-	ln -sf libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION)
-	ln -sf libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION) $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION)
+	ln -sf libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION)
 	ln -sf libclibs_list.so.$(MAJOR_VERSION) $(DESTDIR)$(LIBDIR)/libclibs_list.so
 	test -d $(DESTDIR)$(INCLUDEDIR)$(INCLUDESUBDIR) || mkdir -p $(DESTDIR)$(INCLUDEDIR)$(INCLUDESUBDIR)/
 	cp -f src/list.h $(DESTDIR)$(INCLUDEDIR)$(INCLUDESUBDIR)/list.h
