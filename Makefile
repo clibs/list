@@ -18,7 +18,7 @@ SRCS = src/list.c \
 OBJS = $(SRCS:.c=.o)
 
 MAJOR_VERSION = 0
-MINOR_VERSION = 2
+MINOR_VERSION = 4
 PATCH_VERSION = 0
 
 all: build/libclibs_list.a build/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
