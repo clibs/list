@@ -18,7 +18,7 @@ SRCS = src/list.c \
 OBJS = $(SRCS:.c=.o)
 
 MAJOR_VERSION = 0
-MINOR_VERSION = 2
+MINOR_VERSION = 4
 PATCH_VERSION = 0
 
 all: build/libclibs_list.a build/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
@@ -27,8 +27,7 @@ install: all
 	test -d $(DESTDIR)$(LIBDIR) || mkdir -p $(DESTDIR)$(LIBDIR)
 	cp -f build/libclibs_list.a $(DESTDIR)$(LIBDIR)/libclibs_list.a
 	cp -f build/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
-	ln -sf libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION)
-	ln -sf libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION) $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION)
+	ln -sf libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION) $(DESTDIR)$(LIBDIR)/libclibs_list.so.$(MAJOR_VERSION)
 	ln -sf libclibs_list.so.$(MAJOR_VERSION) $(DESTDIR)$(LIBDIR)/libclibs_list.so
 	test -d $(DESTDIR)$(INCLUDEDIR)$(INCLUDESUBDIR) || mkdir -p $(DESTDIR)$(INCLUDEDIR)$(INCLUDESUBDIR)/
 	cp -f src/list.h $(DESTDIR)$(INCLUDEDIR)$(INCLUDESUBDIR)/list.h
@@ -47,7 +46,7 @@ build/libclibs_list.a: $(OBJS)
 
 build/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION): $(OBJS)
 	@mkdir -p build
-	$(CC) $(LDFLAGS) -shared -lc -Wl,-soname,`basename $@` src/*.o -o $@
+	$(CC) $(LDFLAGS) -shared -lc -Wl,-soname,`basename $@ | sed s/\.${MINOR_VERSION}.${PATCH_VERSION}//` src/*.o -o $@
 	$(STRIP) --strip-unneeded --remove-section=.comment --remove-section=.note $@
 
 bin/test: test.o $(OBJS)
