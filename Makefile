@@ -19,7 +19,7 @@ OBJS = $(SRCS:.c=.o)
 
 MAJOR_VERSION = 0
 MINOR_VERSION = 4
-PATCH_VERSION = 0
+PATCH_VERSION = 1
 
 all: build/libclibs_list.a build/libclibs_list.so.$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_VERSION)
 
