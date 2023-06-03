@@ -126,12 +126,15 @@ bm_at3() {
   stop();
 }
 
-int
-main(void){
+int main(void){
   int n = nnodes;
+  
   list = list_new();
+  
   while (n--) list_lpush(list, list_node_new("foo"));
+  
   puts("\n 10,000,000 nodes\n");
+  
   bm("lpush", bm_lpush);
   bm("rpush", bm_rpush);
   bm("lpop", bm_lpop);
@@ -141,6 +144,8 @@ main(void){
   bm("at(100,000)", bm_at);
   bm("at(1,000,000)", bm_at2);
   bm("at(-100,000)", bm_at3);
+  
   puts("");
+  
   return 0;
 }
