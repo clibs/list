@@ -25,7 +25,9 @@ typedef struct {
 } User;
 
 static int
-User_equal(User *a, User *b) {
+User_equal(void *a1, void *b1) {
+  User *a = a1;
+  User *b = b1;
   return 0 == strcmp(a->name, b->name);
 }
 
